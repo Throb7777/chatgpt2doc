@@ -113,17 +113,19 @@ Microsoft Edge 用户：请运行 `npm run build:edge`，随后在 `edge://exten
 
 ### 复制可编辑公式至 WPS Writer（可选）
 
-由于 WPS Office 使用不同的本机剪贴板格式，复制生成可编辑的 WPS 公式需要安装可选的 Windows 辅助工具（Helper）。
+由于 WPS Office 使用不同的本机剪贴板格式，复制生成可编辑的 WPS 公式需要安装可选的 Windows 辅助工具（Helper）。Chrome 和 Edge 出于安全原因不允许应用商店扩展在用户电脑上静默安装或注册 Native Messaging 主机，因此该 Helper 必须作为一个由用户主动安装的本地组件存在。Release 下载中会提供可直接使用的 Helper 包；从源码构建只适合开发场景。
 
 操作步骤：
 
-1. 按照 [WPS Helper 说明](native/wps-helper/README.md)，针对当前扩展 ID 构建并安装辅助工具。
-2. 打开 ChatGPT2Doc 设置。
-3. 将“复制目标”更改为 **WPS Office**。
-4. 当 Chrome 弹出提示时，允许“本机消息传递”（Native Messaging）权限。
-5. 点击“重新检查”，直至 Helper 状态显示为“可用”。
-6. 在 ChatGPT 消息中选中内容并按下 `Ctrl+C`。
-7. 直接粘贴至 WPS Writer 中。
+1. 从 [Releases](https://github.com/Throb7777/chatgpt2doc/releases) 下载 `chatgpt2doc-wps-helper-v1.0.0.zip` 并解压。
+2. 在 ChatGPT2Doc 设置中或 `chrome://extensions/` 页面中找到当前扩展 ID。
+3. 按照 [WPS Helper 说明](native/wps-helper/README.md)，使用该扩展 ID 运行 Helper 的 `install.ps1`。
+4. 打开 ChatGPT2Doc 设置。
+5. 将“复制目标”更改为 **WPS Office**。
+6. 当 Chrome 弹出提示时，允许“本机消息传递”（Native Messaging）权限。
+7. 点击“重新检查”，直至 Helper 状态显示为“可用”。
+8. 在 ChatGPT 消息中选中内容并按下 `Ctrl+C`。
+9. 直接粘贴至 WPS Writer 中。
 
 在公式结构受支持的情况下，公式在 WPS 中将保持完全可编辑。如果 Helper 不可用，ChatGPT2Doc 会自动降级，安全地使用普通的 Word 兼容剪贴板格式。DOCX 和 PDF 导出功能本身并不依赖此 Helper。
 

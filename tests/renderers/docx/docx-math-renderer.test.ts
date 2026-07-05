@@ -143,6 +143,23 @@ describe('editable Word math rendering', () => {
     expect(fallbackResolver).not.toHaveBeenCalled();
   });
 
+  it('renders uppercase Upsilon with subscript as native Word math', async () => {
+    const fallbackResolver = vi.fn(async () => {
+      throw new Error('Uppercase Upsilon with subscript must not request a DOCX SVG fallback.');
+    });
+    const result = await renderStructuredDocx(request([
+      mathBlock(String.raw`\Upsilon_2`, 'Υ₂'),
+    ]), { mathFallbackResolver: fallbackResolver });
+    const archive = await JSZip.loadAsync(await result.blob.arrayBuffer());
+    const xml = await archive.file('word/document.xml')!.async('string');
+
+    expect(xml).toContain('<m:sSub>');
+    expect(xml).toContain('<m:t>Υ</m:t>');
+    expect(xml).toContain('<m:t>2</m:t>');
+    expect(result.warnings.filter(({ code }) => code === 'math-fallback')).toEqual([]);
+    expect(fallbackResolver).not.toHaveBeenCalled();
+  });
+
   it('renders the M16 complex formula set as native Word math without SVG fallback', async () => {
     const fallbackResolver = vi.fn(async () => {
       throw new Error('M16 formulas must not request a DOCX SVG fallback.');

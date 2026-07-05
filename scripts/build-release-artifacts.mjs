@@ -70,28 +70,28 @@ function isExcluded(relativePath) {
     || normalized.startsWith(pattern));
 }
 
-async function addDirectory(zip, directory, baseDirectory = directory) {
+async function addDirectory(zip, directory, baseDirectory = directory, options = {}) {
   const entries = await readdir(directory, { withFileTypes: true });
   for (const entry of entries) {
     const fullPath = path.join(directory, entry.name);
     const relativePath = normalize(path.relative(baseDirectory, fullPath));
-    if (isExcluded(relativePath)) {
+    if (!options.includeExcluded && isExcluded(relativePath)) {
       continue;
     }
     if (entry.isDirectory()) {
-      await addDirectory(zip, fullPath, baseDirectory);
+      await addDirectory(zip, fullPath, baseDirectory, options);
     } else if (entry.isFile()) {
       zip.file(relativePath, await readFile(fullPath));
     }
   }
 }
 
-async function zipDirectory(sourceDirectory, outputFile) {
+async function zipDirectory(sourceDirectory, outputFile, options = {}) {
   if (!existsSync(sourceDirectory)) {
     throw new Error(`Missing directory: ${sourceDirectory}`);
   }
   const zip = new JSZip();
-  await addDirectory(zip, sourceDirectory);
+  await addDirectory(zip, sourceDirectory, sourceDirectory, options);
   const content = await zip.generateAsync({
     compression: 'DEFLATE',
     compressionOptions: { level: 9 },
@@ -139,11 +139,13 @@ await rm(releaseRoot, { force: true, recursive: true });
 const outputs = {
   chrome: path.join(releaseRoot, 'chrome', 'chatgpt2doc-chrome-v1.0.0.zip'),
   edge: path.join(releaseRoot, 'edge', 'chatgpt2doc-edge-v1.0.0.zip'),
+  helper: path.join(releaseRoot, 'wps-helper', 'chatgpt2doc-wps-helper-v1.0.0.zip'),
   source: path.join(releaseRoot, 'source', 'chatgpt2doc-source-v1.0.0.zip'),
 };
 
 await zipDirectory(path.join(root, '.output', 'chrome-mv3'), outputs.chrome);
 await zipDirectory(path.join(root, '.output', 'edge-mv3'), outputs.edge);
+await zipDirectory(path.join(root, 'native', 'wps-helper'), outputs.helper, { includeExcluded: true });
 await zipPublicSource(outputs.source);
 
 const report = {
@@ -156,7 +158,7 @@ for (const [name, file] of Object.entries(outputs)) {
     path: normalize(path.relative(root, file)),
     bytes: await fileSize(file),
     sha256: await sha256(file),
-    entryCount: await verifyZip(file, { requireManifest: name !== 'source' }),
+    entryCount: await verifyZip(file, { requireManifest: name === 'chrome' || name === 'edge' }),
   };
 }
 

@@ -119,14 +119,14 @@ function normalizeCausalEffectFallback(fallback: string): string | undefined {
 const SYMBOLS: Readonly<Record<string, string>> = {
   '%': '%', '|': '∥',
   alpha: 'α', approx: '≈', ast: '∗', beta: 'β', cap: '∩', cdot: '·', cdots: '⋯',
-  cup: '∪', delta: 'δ', Delta: 'Δ', dots: '…', downarrow: '↓', emptyset: '∅', equiv: '≡',
-  ell: 'ℓ', epsilon: 'ϵ', eta: 'η', exists: '∃', forall: '∀', gamma: 'γ', ge: '≥', geq: '≥', in: '∈', infty: '∞', mid: '∣',
-  lambda: 'λ', land: '∧', ldots: '…', le: '≤', leftarrow: '←', Leftarrow: '⇐',
-  leftrightarrow: '↔', Leftrightarrow: '⇔', leq: '≤', longrightarrow: '⟶', Longrightarrow: '⟹', mapsto: '↦', mu: 'μ', nabla: '∇', omega: 'ω',
-  ne: '≠', neq: '≠', ni: '∋', notin: '∉', odot: '⊙', partial: '∂', phi: 'φ', pi: 'π', pm: '±',
-  prime: MATHEMATICAL_PRIME, propto: '∝', psi: 'ψ', rho: 'ρ', rightarrow: '→', Rightarrow: '⇒', setminus: '∖', sim: '∼',
-  sigma: 'σ', Sigma: 'Σ', Downarrow: '⇓', lVert: '∥', rVert: '∥', Vert: '∥', star: '⋆', subset: '⊂', subseteq: '⊆', supset: '⊃', supseteq: '⊇', tau: 'τ', theta: 'θ',
-  times: '×', to: '→', top: '⊤', varphi: 'φ', xi: 'ξ',
+  chi: 'χ', cup: '∪', delta: 'δ', Delta: 'Δ', dots: '…', downarrow: '↓', emptyset: '∅', equiv: '≡',
+  ell: 'ℓ', epsilon: 'ϵ', eta: 'η', exists: '∃', forall: '∀', gamma: 'γ', Gamma: 'Γ', ge: '≥', geq: '≥', in: '∈', infty: '∞', iota: 'ι', kappa: 'κ', mid: '∣',
+  lambda: 'λ', Lambda: 'Λ', land: '∧', ldots: '…', le: '≤', leftarrow: '←', Leftarrow: '⇐',
+  leftrightarrow: '↔', Leftrightarrow: '⇔', leq: '≤', longrightarrow: '⟶', Longrightarrow: '⟹', mapsto: '↦', mu: 'μ', nabla: '∇', nu: 'ν', omega: 'ω', Omega: 'Ω',
+  ne: '≠', neq: '≠', ni: '∋', notin: '∉', odot: '⊙', partial: '∂', phi: 'φ', Phi: 'Φ', pi: 'π', Pi: 'Π', pm: '±',
+  prime: MATHEMATICAL_PRIME, propto: '∝', psi: 'ψ', Psi: 'Ψ', rho: 'ρ', rightarrow: '→', Rightarrow: '⇒', setminus: '∖', sim: '∼',
+  sigma: 'σ', Sigma: 'Σ', Downarrow: '⇓', lVert: '∥', rVert: '∥', Vert: '∥', star: '⋆', subset: '⊂', subseteq: '⊆', supset: '⊃', supseteq: '⊇', tau: 'τ', theta: 'θ', Theta: 'Θ',
+  times: '×', to: '→', top: '⊤', Upsilon: 'Υ', varphi: 'φ', xi: 'ξ', Xi: 'Ξ', zeta: 'ζ',
 };
 
 const OPERATORS = new Set([

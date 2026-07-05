@@ -134,16 +134,24 @@ will be removed.
 ### Copy editable formulas to WPS Writer (optional)
 
 WPS Office uses a different native clipboard format. To paste editable WPS
-equations, install the optional Windows helper.
+equations, install the optional Windows helper. Chrome and Edge do not allow a
+Web Store extension to silently install or register a Native Messaging host on
+your computer, so this helper must remain a separate, user-approved local
+component. The release download includes a ready-to-use helper package; building
+it from source is only needed for development.
 
-1. Follow [the WPS helper instructions](native/wps-helper/README.md) to build
-   and install it for your current extension ID.
-2. Open ChatGPT2Doc Settings.
-3. Change **Copy target** to **WPS Office**.
-4. Allow the optional Native Messaging permission when Chrome asks.
-5. Click **Recheck** until the helper status shows as ready.
-6. Select content inside a ChatGPT message and press `Ctrl+C`.
-7. Paste directly into WPS Writer.
+1. Download `chatgpt2doc-wps-helper-v1.0.0.zip` from
+   [Releases](https://github.com/Throb7777/chatgpt2doc/releases) and unzip it.
+2. Find the current extension ID in ChatGPT2Doc Settings or on
+   `chrome://extensions/`.
+3. Run the helper `install.ps1` with that extension ID, following
+   [the WPS helper instructions](native/wps-helper/README.md).
+4. Open ChatGPT2Doc Settings.
+5. Change **Copy target** to **WPS Office**.
+6. Allow the optional Native Messaging permission when Chrome asks.
+7. Click **Recheck** until the helper status shows as ready.
+8. Select content inside a ChatGPT message and press `Ctrl+C`.
+9. Paste directly into WPS Writer.
 
 When the formula structure is supported, formulas remain editable in WPS. If the
 helper is unavailable, ChatGPT2Doc safely falls back to the standard

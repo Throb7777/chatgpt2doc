@@ -25,9 +25,10 @@ converted safely, it remains visible through an explicit fallback instead of
 being silently removed.
 
 You can also copy supported formulas to Microsoft Word through the normal rich
-clipboard. WPS Writer users may install an optional local Windows helper for
-editable WPS equations. The helper is not required for DOCX, PDF, or Microsoft
-Word copy.
+clipboard. WPS Writer users may install the optional local Windows helper from
+the project release downloads for editable WPS equations. Chrome requires this
+helper to be a separate user-approved Native Messaging component; it is not
+required for DOCX, PDF, or Microsoft Word copy.
 
 Privacy is simple: conversation parsing and document generation happen on your
 device. There is no ChatGPT2Doc account, cloud conversion server,

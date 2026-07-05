@@ -50,6 +50,27 @@ describe('shared mathematical prime parsing', () => {
   });
 });
 
+describe('shared Greek symbol math parsing', () => {
+  it('parses uppercase Upsilon with scripts from TeX and MathML', () => {
+    const tex = JSON.stringify(parseMathExpression(String.raw`\Upsilon_2`, 'tex'));
+    expect(tex).toContain('"kind":"script"');
+    expect(tex).toContain('"value":"Υ"');
+    expect(tex).toContain('"value":"2"');
+
+    const dom = new JSDOM();
+    const parseMathMl = (source: string) =>
+      new dom.window.DOMParser().parseFromString(source, 'application/xml');
+    const mathMl = JSON.stringify(parseMathExpression(
+      '<math><msub><mi>Υ</mi><mn>2</mn></msub></math>',
+      'mathml',
+      { parseMathMl },
+    ));
+    expect(mathMl).toContain('"kind":"script"');
+    expect(mathMl).toContain('"value":"Υ"');
+    expect(mathMl).toContain('"value":"2"');
+  });
+});
+
 describe('shared M16 SOC lecture math parsing', () => {
   it('parses the bounded SOC lecture TeX subset without fallback-only commands', () => {
     for (const source of [

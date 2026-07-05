@@ -179,6 +179,18 @@ describe('PDF vector math renderer', () => {
     expect(result.warnings.filter(({ code }) => code === 'math-fallback')).toEqual([]);
   });
 
+  it('renders uppercase Upsilon with subscript without visible PDF math fallback', async () => {
+    const result = await renderStructuredPdf(request([
+      mathBlock(String.raw`\Upsilon_2`, 'tex', 'Υ₂'),
+    ]), { fontEnvironment });
+    const inspection = await inspect(result.blob);
+
+    expect(inspection.text).toContain('Υ');
+    expect(inspection.text).toContain('2');
+    expect(inspection.text).not.toContain('Unsupported equation');
+    expect(result.warnings.filter(({ code }) => code === 'math-fallback')).toEqual([]);
+  });
+
   it('renders the M16 complex formula set without visible PDF math fallback', async () => {
     const result = await renderStructuredPdf(request(
       M16_COMPLEX_FORMULAS.map(({ fallbackText, source }) => mathBlock(source, 'tex', fallbackText)),

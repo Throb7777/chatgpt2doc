@@ -223,16 +223,28 @@ if (!result.storeAssets.hasScreenshots || !result.storeAssets.hasSmallPromo) {
 for (const [browser, relativePath] of Object.entries({
   chrome: 'release/v1.0.0/chrome/chatgpt2doc-chrome-v1.0.0.zip',
   edge: 'release/v1.0.0/edge/chatgpt2doc-edge-v1.0.0.zip',
+  helper: 'release/v1.0.0/wps-helper/chatgpt2doc-wps-helper-v1.0.0.zip',
   source: 'release/v1.0.0/source/chatgpt2doc-source-v1.0.0.zip',
 })) {
   const entries = await zipEntries(relativePath);
   result.archives[browser] = entries ? {
     exists: true,
     hasRootManifest: entries.includes('manifest.json'),
+    hasHelperExecutable: entries.includes('dist/ChatExportWpsHost.exe'),
+    hasHelperInstallScript: entries.includes('install.ps1'),
     forbiddenEntries: entries.filter((entry) => forbiddenArchivePrefixes.some((prefix) => entry.startsWith(prefix))),
   } : { exists: false };
+  if (!entries) {
+    fail(`Required release archive is missing: ${relativePath}`);
+  }
   if (browser !== 'source' && entries && !entries.includes('manifest.json')) {
-    fail(`${browser} extension ZIP does not contain manifest.json at the root.`);
+    if (browser === 'helper') {
+      if (!entries.includes('dist/ChatExportWpsHost.exe') || !entries.includes('install.ps1')) {
+        fail('WPS helper archive is missing the helper executable or install script.');
+      }
+    } else {
+      fail(`${browser} extension ZIP does not contain manifest.json at the root.`);
+    }
   }
   if (entries && result.archives[browser].forbiddenEntries.length > 0) {
     fail(`${browser} archive contains forbidden entries: ${result.archives[browser].forbiddenEntries.join(', ')}`);

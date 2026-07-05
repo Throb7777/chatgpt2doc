@@ -16,7 +16,7 @@ ChatGPT2Doc 会在 ChatGPT 页面中加入简洁的 DOCX 和 PDF 操作。你可
 
 导出的文档可以保留标题、段落、列表、引用、链接、参考来源、表格、代码、图片、中英文和数学公式。受支持的公式在 Microsoft Word 中保持可编辑；PDF 保留可搜索文字和内嵌字体。遇到无法安全转换的页面元素时，扩展会保留明确的可见回退，而不是悄悄删除内容。
 
-还可以通过普通富文本剪贴板把受支持的公式复制到 Microsoft Word。WPS Writer 用户可以选择安装本地 Windows helper，以获得可编辑的 WPS 公式。DOCX、PDF 和 Microsoft Word 复制都不依赖该 helper。
+还可以通过普通富文本剪贴板把受支持的公式复制到 Microsoft Word。WPS Writer 用户可以从项目发行版下载并安装可选的本地 Windows helper，以获得可编辑的 WPS 公式。Chrome 要求这类 helper 必须是用户主动安装的独立 Native Messaging 本地组件；DOCX、PDF 和 Microsoft Word 复制都不依赖该 helper。
 
 隐私边界很直接：对话解析和文档生成都在本机完成，没有 ChatGPT2Doc 账号、云端转换服务器、订阅、数据分析或遥测。可选的 WPS helper 也只在本机运行，不开放网络端口。
 
