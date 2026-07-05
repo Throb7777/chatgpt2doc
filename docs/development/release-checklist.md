@@ -24,7 +24,7 @@ Run this checklist before publishing source or uploading a browser package.
 ## Store readiness
 
 - Store listing text is present in `docs/store/`.
-- Privacy disclosures match `PRIVACY.md`.
+- Privacy disclosures match `PRIVACY.md` and `PRIVACY.zh-CN.md`.
 - Screenshots exist under `docs/store/screenshots/`.
 - Small promotional image exists under `docs/store/promotional/`.
 - Test instructions explain DOCX/PDF export and optional WPS helper behavior.

@@ -9,10 +9,12 @@ const requiredFiles = [
   'README.md',
   'README.zh-CN.md',
   'PRIVACY.md',
+  'PRIVACY.zh-CN.md',
   'LICENSE',
   'THIRD_PARTY_NOTICES.md',
   '.releaseignore',
   'docs/USAGE.md',
+  'docs/USAGE.zh-CN.md',
   'docs/development/architecture.md',
   'docs/development/release-inventory.md',
   'docs/development/public-source-boundary.md',
@@ -169,10 +171,13 @@ if (!result.packageJson.hasReadinessScript || !result.packageJson.hasPackageScri
 }
 
 const privacy = await readText('PRIVACY.md');
+const privacyZh = await readText('PRIVACY.zh-CN.md');
 result.privacy = {
   mentionsNativeMessaging: privacy.includes('nativeMessaging'),
   mentionsNoTelemetry: privacy.includes('telemetry') && privacy.includes('does not'),
   mentionsPackagedFonts: privacy.includes('Bundled PDF fonts'),
+  zhMentionsLocalProcessing: privacyZh.includes('浏览器本地处理 ChatGPT 对话内容'),
+  zhMentionsNativeMessaging: privacyZh.includes('nativeMessaging'),
 };
 if (!Object.values(result.privacy).every(Boolean)) {
   fail('Privacy policy is missing current nativeMessaging, no-telemetry, or packaged-font disclosure.');
@@ -196,8 +201,8 @@ result.license = {
   polyFormNoncommercial: license.includes('PolyForm Noncommercial License 1.0.0'),
   requiredNotice: license.includes('Required Notice: Copyright 2026 Throb7'),
   packageIdentifier: packageJsonLicense === 'PolyForm-Noncommercial-1.0.0',
-  englishDisclosure: readme.includes('Commercial use is not permitted'),
-  chineseDisclosure: readmeZh.includes('不允许商业使用'),
+  englishDisclosure: /commercial use requires\s+separate permission/iu.test(readme),
+  chineseDisclosure: /商业使用需要另行获得许可/u.test(readmeZh),
   noProjectMitClaim: !/Project source is released under the \[MIT License\]/u.test(readme),
 };
 if (!Object.values(result.license).every(Boolean)) {

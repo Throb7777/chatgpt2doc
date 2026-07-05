@@ -13,11 +13,13 @@ This project has two separate release artifacts:
 - `native/wps-helper/` source and scripts, excluding `dist/`
 - `scripts/` release, QA, and asset-generation scripts
 - `docs/USAGE.md`
+- `docs/USAGE.zh-CN.md`
 - `docs/store/`
 - `docs/development/`
 - `README.md`
 - `README.zh-CN.md`
 - `PRIVACY.md`
+- `PRIVACY.zh-CN.md`
 - `LICENSE`
 - `THIRD_PARTY_NOTICES.md`
 - `package.json`

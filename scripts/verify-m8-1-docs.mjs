@@ -7,9 +7,11 @@ const required = [
   'README.md',
   'README.zh-CN.md',
   'PRIVACY.md',
+  'PRIVACY.zh-CN.md',
   'LICENSE',
   'THIRD_PARTY_NOTICES.md',
   'docs/USAGE.md',
+  'docs/USAGE.zh-CN.md',
 ];
 const checks = [];
 
@@ -25,6 +27,7 @@ for (const file of required) {
 const readme = await readFile(path.join(root, 'README.md'), 'utf8');
 const readmeZh = await readFile(path.join(root, 'README.zh-CN.md'), 'utf8');
 const privacy = await readFile(path.join(root, 'PRIVACY.md'), 'utf8');
+const privacyZh = await readFile(path.join(root, 'PRIVACY.zh-CN.md'), 'utf8');
 const notices = await readFile(path.join(root, 'THIRD_PARTY_NOTICES.md'), 'utf8');
 const license = await readFile(path.join(root, 'LICENSE'), 'utf8');
 const chromeManifest = JSON.parse(
@@ -38,7 +41,11 @@ check('readme-bilingual-links',
   /(?:\(|href=")README\.zh-CN\.md/u.test(readme)
     && /(?:\(|href=")README\.md/u.test(readmeZh)
     && /(?:\(|href=")PRIVACY\.md/u.test(readme)
-    && /(?:\(|href=")docs\/USAGE\.md/u.test(readme),
+    && /(?:\(|href=")docs\/USAGE\.md/u.test(readme)
+    && /(?:\(|href=")PRIVACY\.zh-CN\.md/u.test(readmeZh)
+    && /(?:\(|href=")docs\/USAGE\.zh-CN\.md/u.test(readmeZh)
+    && /(?:\(|href=")PRIVACY\.zh-CN\.md/u.test(privacy)
+    && /(?:\(|href=")PRIVACY\.md/u.test(privacyZh),
   'Public entry points link to each other');
 check('readme-scopes',
   readme.toLowerCase().includes('one assistant response')
@@ -48,7 +55,9 @@ check('readme-scopes',
   'All verified scopes documented');
 check('privacy-local-processing',
   privacy.includes('processes ChatGPT conversation content locally')
-    && privacy.includes('does not collect, sell, transmit, or retain'),
+    && privacy.includes('does not collect, sell, transmit, or retain')
+    && privacyZh.includes('浏览器本地处理 ChatGPT 对话内容')
+    && privacyZh.includes('不会把对话正文'),
   'Local processing and no collection claims present');
 check('privacy-image-boundary',
   /omits\s+credentials/u.test(privacy)

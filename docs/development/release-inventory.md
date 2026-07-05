@@ -9,7 +9,7 @@ Updated: 2026-07-05
 - Static extension assets: `public/icon/`, `public/fonts/`
 - Optional local helper source: `native/wps-helper/`, excluding `dist/`
 - Build and QA scripts: `scripts/`
-- Public documentation: `README.md`, `README.zh-CN.md`, `PRIVACY.md`, PolyForm Noncommercial `LICENSE`, `THIRD_PARTY_NOTICES.md`, `docs/USAGE.md`, `docs/store/`, `docs/development/`
+- Public documentation: `README.md`, `README.zh-CN.md`, `PRIVACY.md`, `PRIVACY.zh-CN.md`, PolyForm Noncommercial `LICENSE`, `THIRD_PARTY_NOTICES.md`, `docs/USAGE.md`, `docs/USAGE.zh-CN.md`, `docs/store/`, `docs/development/`
 - Package and tool configuration: `package.json`, `package-lock.json`, `wxt.config.ts`, `tsconfig.json`, `vitest.config.ts`, `eslint.config.js`
 
 ## Store package categories

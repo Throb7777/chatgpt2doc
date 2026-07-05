@@ -2,6 +2,8 @@
 
 Effective date: 2026-07-04
 
+[简体中文](PRIVACY.zh-CN.md) · [README](README.md)
+
 ChatGPT2Doc processes ChatGPT conversation content locally in the
 browser to create DOCX and PDF files.
 

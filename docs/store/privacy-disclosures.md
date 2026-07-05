@@ -47,5 +47,5 @@ warning. No chat text is added to that request.
 
 ## Certification
 
-The disclosure matches `PRIVACY.md`, the built Manifest V3 packages, and the
-M7.1/M7.5 privacy and release audits.
+The disclosure matches `PRIVACY.md`, `PRIVACY.zh-CN.md`, the built Manifest V3
+packages, and the M7.1/M7.5 privacy and release audits.

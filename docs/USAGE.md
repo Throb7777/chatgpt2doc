@@ -1,60 +1,140 @@
-# Usage Guide / 使用说明
+# Usage Guide
 
-[English README](../README.md) · [中文 README](../README.zh-CN.md)
+[README](../README.md) · [简体中文](USAGE.zh-CN.md) · [Privacy](../PRIVACY.md)
 
-## Install / 安装
+## Install
 
-The Chrome Web Store link will be added after review. For a local build:
+### Chrome Web Store
 
-1. Run `npm ci` and `npm run build:chrome`.
-2. Open `chrome://extensions` and enable Developer mode.
-3. Choose **Load unpacked** and select `.output/chrome-mv3`.
-4. Refresh `https://chatgpt.com/`.
+The direct store link will be added after the public listing is approved. This
+is the recommended installation method because Chrome can update the extension
+automatically.
 
-Chrome 应用商店审核通过后会补充直达链接。本地测试时，先运行 `npm ci` 和 `npm run build:chrome`，然后打开 `chrome://extensions`、开启开发者模式，并加载 `.output/chrome-mv3`。
+Project source and release downloads:
 
-## Export / 导出
+- [https://github.com/Throb7777/chatgpt2doc](https://github.com/Throb7777/chatgpt2doc)
+- [https://github.com/Throb7777/chatgpt2doc/releases](https://github.com/Throb7777/chatgpt2doc/releases)
 
-- Buttons beside a response export that response only. / 回复旁按钮只导出该条回复。
-- The floating tray exports the full conversation. / 浮动胶囊导出完整对话。
-- Turn off **Include user prompts** for assistant-only output. / 关闭“包含用户提示”可只导出助手内容。
-- Selection mode exports only checked messages. / 选择模式只导出勾选消息。
-- Wait for streaming to finish before exporting. / 回复生成完毕后再导出。
+### Local build
 
-Only one export runs at a time. The progress notice shows collection,
-rendering, and download work. Cancellation stops the job without downloading a
-partial file. Successful notices close automatically.
+1. Install Node.js and npm.
+2. Open a terminal in the project folder.
+3. Run:
 
-同一时间只运行一个导出任务。进度提示会显示收集、生成和下载状态；取消后不会下载残缺文件；成功提示会自动消失。
+   ```powershell
+   npm ci
+   npm run build:chrome
+   ```
 
-## Output / 输出说明
+4. Open `chrome://extensions`.
+5. Turn on **Developer mode**.
+6. Choose **Load unpacked**.
+7. Select `.output/chrome-mv3`.
+8. Open or refresh `https://chatgpt.com/`.
+
+For Microsoft Edge, run `npm run build:edge`, open `edge://extensions`, and
+load `.output/edge-mv3`.
+
+## Export
+
+### One assistant response
+
+Move the pointer over an assistant response and click its DOCX or PDF action.
+Only that response is exported.
+
+### Full conversation
+
+Use the DOCX or PDF icon in the floating tray. Messages are exported in their
+visible order.
+
+### Assistant-only content
+
+Open Settings from the gear icon, turn off **Include user prompts**, then
+export from the floating tray. User prompts are omitted and assistant responses
+keep their original order.
+
+### Selected messages
+
+Start **Select messages** from the floating tray, check the messages you want,
+then export from the bottom selection bar. Empty selections cannot be exported.
+
+Wait for ChatGPT to finish streaming before exporting a response.
+
+## Progress and warnings
+
+Only one export runs at a time. The progress notice shows collection, rendering,
+and download stages. You can cancel before the file is downloaded. Successful
+notices close automatically.
+
+By default, a successful export only reports completion. Turn on **Show export
+diagnostics** in Settings if you want details about unavailable images,
+unsupported formulas, incomplete collection, or visible fallbacks.
+
+Fallbacks do not mean the whole export failed. They mark the exact content that
+could not keep its original structure.
+
+## Output behavior
 
 - Supported Word equations are native and editable.
-- Unsupported equations remain visible through a rendered or text fallback.
-- PDF text stays searchable; very unusual formulas may use visible fallback.
-- Images are embedded when readable. Otherwise a source link or visible
-  fallback is retained.
-- Detailed warnings can be enabled in Settings.
+- Unsupported equations stay visible through a rendered or text fallback.
+- PDF text remains searchable.
+- Images are embedded when the browser can read and decode them.
+- If an image cannot be embedded, the export keeps a source link or visible
+  fallback where possible.
 
-- 受支持的 Word 公式会保持原生可编辑。
-- 不支持的公式会保留渲染图或文本回退，不会被静默删除。
-- PDF 文字可搜索，极少见的复杂公式可能使用可见回退。
-- 图片可读取时会嵌入，否则保留来源链接或可见提示。
-- 可在设置中开启详细警告。
+## Copy formulas to Microsoft Word
 
-## Copy formulas / 复制公式
+The default copy target is **Microsoft Word** and needs no helper:
 
-Choose **Microsoft Word** for the browser-only rich clipboard path. Choose
-**WPS Office** only after installing the optional Windows helper described in
-[`native/wps-helper/README.md`](../native/wps-helper/README.md). DOCX/PDF export
-does not depend on the helper.
+1. Select text and formulas inside one ChatGPT message.
+2. Press `Ctrl+C`.
+3. Paste normally into Microsoft Word.
 
-选择 **Microsoft Word** 时直接使用浏览器富文本剪贴板。只有安装了 [`native/wps-helper/README.md`](../native/wps-helper/README.md) 中的可选 Windows helper 后，才需要选择 **WPS Office**。DOCX/PDF 导出不依赖 helper。
+On supported Windows Word versions, supported formulas become editable Word
+equations. Plain-text paste intentionally removes equation structure.
 
-## Settings / 设置
+## Copy editable formulas to WPS Writer
 
-Settings cover language, file name, A4 or Letter paper, document theme, code
-style, prompt inclusion, diagnostics, and Word/WPS copy target. They are stored
-only in browser-local extension storage.
+WPS uses a different native clipboard format. Editable WPS equations therefore
+need the optional Windows helper:
 
-设置包括语言、文件名、A4 或 Letter、文档主题、代码样式、是否包含用户提示、诊断显示和 Word/WPS 复制目标，全部只保存在浏览器本地。
+1. Follow [the WPS helper instructions](../native/wps-helper/README.md) to
+   build and install it for the current extension ID.
+2. Open ChatGPT2Doc Settings.
+3. Change **Copy target** to **WPS Office**.
+4. Allow the optional Native Messaging permission when Chrome asks.
+5. Select **Recheck** until the helper status is ready.
+6. Select content inside one ChatGPT message and press `Ctrl+C`.
+7. Paste into WPS Writer.
+
+DOCX and PDF export never require the helper.
+
+## Settings
+
+- **Language:** English or Simplified Chinese.
+- **File name:** leave empty to use the conversation title and timestamp.
+- **Paper:** A4 or Letter.
+- **Document theme:** light or dark.
+- **Code style:** follow the document, light, or dark.
+- **Include user prompts:** include or omit prompts in conversation exports.
+- **Show export diagnostics:** show detailed fallback and warning information.
+- **Per-message actions:** show or hide actions beside assistant responses.
+- **Copy target:** Microsoft Word or WPS Office.
+- **Panel position:** drag the floating tray; its position is remembered.
+
+**Reset settings** restores the defaults. Preferences stay in browser-local
+extension storage.
+
+## Troubleshooting
+
+- **Controls are missing:** refresh ChatGPT and confirm the extension is enabled
+  on `chatgpt.com`.
+- **Export stays busy:** wait for the current ChatGPT response to finish, cancel,
+  and retry once.
+- **A formula uses a fallback:** enable diagnostics and check the visible result.
+- **An image is missing:** the browser may be unable to read or decode its
+  source; the export keeps a link or fallback when possible.
+- **WPS helper is unavailable:** confirm the extension ID, reinstall the helper
+  for that ID, grant the optional permission, and recheck.
+- **Chrome says the manifest is missing:** run `npm run build:chrome` again and
+  load `.output/chrome-mv3`, not the project root.
