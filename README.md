@@ -13,30 +13,34 @@
 <p align="center">
   <a href="README.zh-CN.md">简体中文</a> ·
   <a href="docs/USAGE.md">Usage guide</a> ·
-  <a href="PRIVACY.md">Privacy</a> ·
+  <a href="PRIVACY.md">Privacy policy</a> ·
   <a href="LICENSE">License</a>
 </p>
 
 ## What it does
 
-ChatGPT2Doc adds DOCX and PDF controls directly to ChatGPT. It can export:
+ChatGPT2Doc adds DOCX and PDF export controls directly to the ChatGPT web
+interface.
+
+You can export:
 
 - one assistant response;
-- the complete conversation;
-- assistant-only content without your prompts;
-- only the messages you select.
+- the complete conversation, in the order shown on the page;
+- assistant-only content, automatically excluding your prompts;
+- custom-selected messages.
 
-The extension preserves headings, lists, quotes, links, citations, tables,
-code blocks, images, Chinese and English text, and supported mathematical
-expressions. DOCX uses editable Word equations where supported. PDF keeps text
-searchable and embeds the fonts it needs.
+Exports preserve headings, lists, quotes, links, citations, tables, code
+blocks, images, Chinese and English text, and mathematical expressions where
+supported.
 
-Everything is generated on your device. There is no ChatGPT2Doc account,
-conversion server, subscription, analytics, or telemetry.
+- **DOCX:** supported formulas remain native and editable in Microsoft Word.
+- **PDF:** generated PDFs keep searchable text and embed the fonts they need.
+- **Local processing:** files are generated on your device. ChatGPT2Doc needs
+  no account, external conversion server, subscription, analytics, or telemetry.
 
-## Install
+## Installation
 
-### Chrome Web Store
+### Chrome Web Store (recommended)
 
 The direct store link will be added after the public listing is approved. This
 is the recommended installation method because Chrome can update the extension
@@ -44,10 +48,12 @@ automatically.
 
 Project source and release downloads:
 
-- [https://github.com/Throb7777/chatgpt2doc](https://github.com/Throb7777/chatgpt2doc)
-- [https://github.com/Throb7777/chatgpt2doc/releases](https://github.com/Throb7777/chatgpt2doc/releases)
+- GitHub repository: [https://github.com/Throb7777/chatgpt2doc](https://github.com/Throb7777/chatgpt2doc)
+- Releases: [https://github.com/Throb7777/chatgpt2doc/releases](https://github.com/Throb7777/chatgpt2doc/releases)
 
-### Load the current build manually
+### Manual installation (developer mode)
+
+If you want to build and load the current version manually:
 
 1. Install Node.js and npm.
 2. Open a terminal in the project folder.
@@ -58,129 +64,146 @@ Project source and release downloads:
    npm run build:chrome
    ```
 
-4. Open `chrome://extensions`.
-5. Turn on **Developer mode**.
-6. Select **Load unpacked**.
-7. Choose `.output/chrome-mv3`.
+4. Open Chrome and go to `chrome://extensions/`.
+5. Turn on **Developer mode** in the top-right corner.
+6. Click **Load unpacked**.
+7. Select the `.output/chrome-mv3` folder.
 8. Open or refresh `https://chatgpt.com/`.
 
-For Microsoft Edge, run `npm run build:edge`, open `edge://extensions`, and
-load `.output/edge-mv3`.
+For Microsoft Edge, run `npm run build:edge`, open `edge://extensions/`, and
+load the `.output/edge-mv3` folder.
 
-## Export a document
+## How to export documents
 
-### Export one response
+### Export a single response
 
-Move the pointer over an assistant response and use its DOCX or PDF action.
-Only that response is exported.
+Hover over an assistant response and click the DOCX or PDF icon beside that
+response. Only that response is exported.
 
-### Export the whole conversation
+### Export the complete conversation
 
-Use the DOCX or PDF icon in the floating tray. The messages are exported in
-their visible order.
+Click the DOCX or PDF icon in the floating control panel. Conversation messages
+are exported in the order shown on the page.
 
 ### Export assistant responses only
 
-1. Open the gear icon in the floating tray.
+1. Click the gear icon in the floating control panel.
 2. Turn off **Include user prompts**.
-3. Export the conversation from the floating tray.
+3. Export the conversation from the floating control panel.
 
-Your prompts are omitted; assistant responses keep their original order.
+Your prompts are omitted, while assistant responses keep their original order.
 
 ### Export selected messages
 
-1. Start **Select messages** from the floating tray.
-2. Tick each user or assistant message you want.
-3. Use DOCX or PDF in the bottom selection bar.
-4. Leave selection mode when finished.
+1. Click **Select messages** in the floating control panel.
+2. Check the user messages or assistant responses you want to export.
+3. Click DOCX or PDF in the bottom selection bar.
+4. Exit selection mode when finished.
 
 An empty selection cannot be exported. If ChatGPT is still generating a
-response, wait until streaming finishes before exporting it.
+response, wait until generation has finished before exporting.
 
-## Export progress and warnings
+## Export progress and diagnostics
 
-Only one export runs at a time. While it is working, a progress notice shows
-the current collection, rendering, or download stage. You can cancel before
-the file is downloaded. The completion notice closes automatically.
+Only one export task can run at a time. During export, the progress notice shows
+whether the extension is collecting content, generating the document, or
+downloading the file. You can cancel before the file starts downloading. After
+the file is generated, the notice closes automatically.
 
-By default, a successful export simply reports completion. Turn on
-**Show export diagnostics** in Settings if you want details about unavailable
-images, unsupported formulas, incomplete collection, or visible fallbacks.
+By default, a successful export simply shows that it is complete. If you want
+technical details about failed image loading, unsupported formulas, incomplete
+collection, or fallback layout, turn on **Show export diagnostics** in Settings.
 
-Fallbacks do not mean that the whole export failed. They mark the exact content
-that could not retain its original structure.
+A fallback does not mean the whole file failed. It only means that a specific
+piece of content could not keep its original complex structure.
 
-## Copy formulas to Microsoft Word
+## Copy mathematical formulas
 
-The default copy target is **Microsoft Word** and needs no helper:
+### Copy to Microsoft Word (no helper required)
 
-1. Select text and formulas inside one ChatGPT message.
-2. Press `Ctrl+C`.
-3. Paste normally into Microsoft Word.
+You do not need any additional helper to copy formulas into Microsoft Word:
 
-On supported Windows Word versions, supported formulas become editable Word
-equations. Plain-text paste intentionally removes equation structure.
+1. Select the text and mathematical formulas inside a ChatGPT message.
+2. Press `Ctrl+C` (`Cmd+C` on macOS).
+3. Paste normally into Word.
 
-## Copy editable formulas to WPS Writer
+On supported Windows versions of Word, supported formulas are converted into
+native, editable Word equations. If you paste as plain text, equation structure
+will be removed.
 
-WPS uses a different native clipboard format, so editable WPS equations need
-the optional Windows helper.
+### Copy editable formulas to WPS Writer (optional)
+
+WPS Office uses a different native clipboard format. To paste editable WPS
+equations, install the optional Windows helper.
 
 1. Follow [the WPS helper instructions](native/wps-helper/README.md) to build
-   and install it for the current extension ID.
+   and install it for your current extension ID.
 2. Open ChatGPT2Doc Settings.
 3. Change **Copy target** to **WPS Office**.
 4. Allow the optional Native Messaging permission when Chrome asks.
-5. Select **Recheck** until the helper status is ready.
-6. Select content inside one ChatGPT message and press `Ctrl+C`.
-7. Paste into WPS Writer.
+5. Click **Recheck** until the helper status shows as ready.
+6. Select content inside a ChatGPT message and press `Ctrl+C`.
+7. Paste directly into WPS Writer.
 
-The generated equations remain editable when their structures are supported.
-If the helper is unavailable, ChatGPT2Doc safely falls back to the normal
-Word-compatible clipboard. DOCX and PDF export never require the helper.
+When the formula structure is supported, formulas remain editable in WPS. If the
+helper is unavailable, ChatGPT2Doc safely falls back to the standard
+Word-compatible clipboard format. DOCX and PDF export do not depend on this
+helper.
 
 ## Settings
 
-Open the gear icon in the floating tray to configure:
+Click the gear icon in the floating control panel to configure:
 
 - **Language:** English or Simplified Chinese.
-- **File name:** leave empty to use the conversation title and timestamp.
+- **File name:** customize the file name, or leave it blank to use the
+  conversation title and timestamp.
 - **Paper:** A4 or Letter.
-- **Document theme:** light or dark.
-- **Code style:** follow the document, light, or dark.
-- **Include user prompts:** include or omit prompts in conversation exports.
-- **Show export diagnostics:** show detailed fallback and warning information.
-- **Per-message actions:** show or hide actions beside assistant responses.
-- **Copy target:** Microsoft Word or WPS Office.
-- **Panel position:** drag the floating tray; its position is remembered.
+- **Document theme:** Light or Dark.
+- **Code style:** follow the document, Light, or Dark.
+- **Include user prompts:** include or omit your prompts when exporting a whole
+  conversation.
+- **Show export diagnostics:** show or hide detailed warning and fallback
+  reports.
+- **Per-message actions:** show or hide quick export buttons beside assistant
+  responses.
+- **Copy target:** choose Microsoft Word or WPS Office as the default clipboard
+  target.
+- **Panel position:** drag the floating control panel; Chrome remembers its
+  position.
 
-**Reset settings** restores the defaults. Preferences stay in browser-local
-extension storage.
+Click **Reset settings** to restore defaults. All preferences are stored only in
+your browser's local extension storage.
 
-## If something does not work
+## Troubleshooting
 
-- **The controls are missing:** refresh ChatGPT after installing or reloading
-  the extension. Confirm that the extension is enabled on `chatgpt.com`.
-- **Export stays busy:** wait for the current ChatGPT response to finish, then
-  cancel and retry once. Do not start several exports at the same time.
-- **A formula uses a fallback:** enable diagnostics, check the visible result,
-  and keep the fallback if the expression uses unsupported notation.
-- **An image is missing:** the browser may be unable to read or decode its
-  source. The export keeps a link or visible fallback when possible.
-- **WPS says the helper is unavailable:** confirm the selected extension ID,
-  reinstall the helper for that ID, grant the optional permission, and recheck.
-- **The unpacked extension has no manifest:** run `npm run build:chrome` again
-  and load `.output/chrome-mv3`, not the project root.
+- **Export buttons do not appear:** refresh ChatGPT after installing or
+  reloading the extension. Make sure the extension is allowed to run on
+  `chatgpt.com`.
+- **Export stays busy:** wait until the current ChatGPT response has finished
+  streaming. If it is still stuck, cancel the export and try again. Avoid
+  starting multiple exports at the same time.
+- **A formula appears as fallback content:** turn on **Show export diagnostics**
+  to inspect the exact formula. Unsupported notation is shown as a fallback so
+  the content is not silently lost.
+- **Images are missing in the exported document:** the browser may have been
+  unable to access or decode the source image. The extension tries to keep the
+  original link or a visible placeholder at the same position.
+- **WPS helper is unavailable:** confirm the extension ID shown in Settings,
+  reinstall the helper for that ID, grant the required permission, and click
+  **Recheck**.
+- **Chrome says the manifest file is missing:** run `npm run build:chrome`
+  successfully, then load `.output/chrome-mv3`, not the project root.
 
 ## Privacy
 
-Conversation content is processed locally for the export or copy action you
-request. ChatGPT2Doc does not upload conversations to the developer and does
-not include tracking. Remote images already present in a conversation may be
-read from their original addresses so they can be embedded. See
+Your privacy matters. Conversation content is processed locally in your browser
+only when you actively export or copy. ChatGPT2Doc does not upload your chats to
+a developer server and does not include tracking, analytics, or telemetry.
+Remote images already present in the conversation may be fetched from their
+original URLs so they can be embedded in exported files. See
 [PRIVACY.md](PRIVACY.md) for details.
 
-## Development
+## Development and build
 
 ```powershell
 npm ci
@@ -191,13 +214,13 @@ npm run release:readiness
 npm run release:package
 ```
 
-Unpacked builds are written to `.output/`. Release ZIPs are written to
+Unpacked builds are written to `.output/`. Release ZIP files are written to
 `release/v1.0.0/`.
 
 ## License
 
-ChatGPT2Doc is free to use. Its source is available under the
-[PolyForm Noncommercial License 1.0.0](LICENSE): personal, research,
-educational, and other noncommercial use is permitted; commercial use requires
-separate permission. Third-party components keep their own licenses in
+ChatGPT2Doc is free to use. The source code is licensed under the
+[PolyForm Noncommercial License 1.0.0](LICENSE): personal, academic,
+educational, and other noncommercial use is allowed; commercial use requires separate permission.
+Third-party components keep their own licenses; see
 [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).

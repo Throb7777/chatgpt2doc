@@ -4,98 +4,114 @@ Effective date: 2026-07-04
 
 [简体中文](PRIVACY.zh-CN.md) · [README](README.md)
 
-ChatGPT2Doc processes ChatGPT conversation content locally in the
-browser to create DOCX and PDF files.
+ChatGPT2Doc processes ChatGPT conversation content locally in your browser
+sandbox to generate DOCX and PDF files.
 
 ## Data Collection
 
-The extension does not collect, sell, transmit, or retain conversation text,
-conversation titles, message identifiers, browsing history, generated files,
-or error payloads on a developer-operated server. It has no account system,
-analytics, telemetry, advertising, subscription, licensing, or remote
-conversion service.
+The extension does not collect, sell, transmit, or retain your conversation
+text, conversation titles, message identifiers, browsing history, generated
+files, or error payloads on any developer-operated server.
+
+ChatGPT2Doc contains no account system, data analytics, telemetry,
+advertisements, subscriptions, licensing checks, or remote document conversion
+services.
 
 ## Local Storage
 
-The `storage` permission is used only for these export preferences:
+The `storage` permission is used exclusively to save your local configuration
+preferences:
 
-- interface/document language;
-- custom file name;
-- A4 or Letter paper;
-- include user prompts;
-- light or dark document theme;
-- document, light, or dark code style.
-- conversation collection and copy-target preferences;
-- floating-panel position and diagnostic-display preferences.
+- interface and document language settings;
+- custom file naming format;
+- paper size selection (A4 or Letter);
+- include user prompts option;
+- document theme (Light or Dark);
+- code block styling (Follow document, Light, or Dark);
+- conversation collection and copy-target clipboard preferences;
+- floating panel position and export diagnostics visibility.
 
-They are stored locally under `chatExport.settings.v2` and can be reset from
-the settings dialog.
+These settings are stored locally on your device under the
+`chatExport.settings.v2` namespace and can be reset to default values at any
+time from the settings panel.
 
 ## Optional WPS Integration
 
-If the user selects WPS Office copy compatibility, the extension requests the
-optional `nativeMessaging` permission. It communicates only with the separately
-installed local WPS helper to place a bounded DOCX/OMML package on the local
-clipboard. The helper opens no network port and does not transmit document
-content. Microsoft Word compatible copy remains available without the helper.
+If you choose to enable WPS Office copy compatibility mode, the extension will
+request the optional `nativeMessaging` permission.
+
+- **Helper communication:** the extension communicates only with your separately
+  installed local WPS helper utility to place a bounded DOCX/OMML package onto
+  your native clipboard.
+- **Local restrictions:** the helper does not open any network ports and does
+  not transmit document content over the internet.
+- **No helper required for Word:** standard copy compatibility with Microsoft
+  Word remains fully functional without this helper.
 
 ## Page Access
 
-The extension runs only on `https://chatgpt.com/*`. It reads conversation DOM
-content after a user invokes an export action. Processing and document
-generation occur in the browser.
+The extension runs exclusively on `https://chatgpt.com/*`. It only reads
+conversation DOM content when you actively trigger an export action. All data
+parsing, processing, and document generation occur inside your local browser
+sandbox.
 
-## Images And Network Requests
+## Images and Network Requests
 
-When a selected export contains an image URL, the extension may request that
-image from its existing source so it can be embedded. The request omits
-credentials and suppresses the page referrer. The image host can still observe
-normal connection data such as the request URL and IP address. No conversation
-text is added to the request by the extension.
+When exported content includes a remote image URL, the extension may request
+that image from its original source hosting address to embed it into the
+generated document.
 
-If the browser, source server, CORS policy, size limit, or image decoder blocks
-the image, the output preserves a link or visible fallback and reports a
-warning. Bundled PDF fonts are read from the installed extension itself and
-are exposed only to `chatgpt.com` as packaged extension resources.
+- **Privacy safeguards:** the extension omits credentials, such as cookies, and
+  suppresses the page referrer header for these requests. No conversation text
+  or context is added to the request by the extension.
+- **Standard web logs:** the image hosting server can still observe typical
+  connection metadata, such as the request URL and IP address.
+- **Fallback behavior:** if the network request is blocked by the browser,
+  source server, CORS policy, file size limit, or image decoder, the output
+  document preserves a direct source link or a visible fallback representation.
+
+Bundled PDF fonts are read directly from the installed extension bundle and are
+exposed only to `chatgpt.com` as packaged extension resources.
 
 ## Downloads
 
-Generated DOCX and PDF files are downloaded with browser Blob URLs initiated
-by the user. The extension does not require the broad `downloads` permission.
+Generated DOCX and PDF files are downloaded locally using browser Blob URLs
+initiated by your actions. The extension does not request or require the broad
+`downloads` permission.
 
-## Changes
+## Clipboard Copy Enhancement
 
-Any future change that adds data collection, a new permission, another host,
-or an external service must update this policy before release.
+The copy enhancement runs only when you actively press `Ctrl+C` (`Cmd+C` on
+macOS) to copy ChatGPT message content.
+
+- **Word copy mode:** uses the browser's native rich-text clipboard path.
+- **WPS copy mode:** after you choose WPS and install the helper, uses the local
+  helper for formula compatibility.
+- **Data safety:** clipboard content is never sent to a developer server.
+
+## Permissions
+
+ChatGPT2Doc follows a minimal-permission design:
+
+- **`storage`:** saves your local preferences.
+- **`https://chatgpt.com/*`:** lets the extension run on ChatGPT, show export
+  controls, and read conversation content only when you request it.
+- **Optional `nativeMessaging`:** requested only when you enable WPS Office copy
+  compatibility mode.
+
+The extension does not request or use unnecessary sensitive permissions such as
+Downloads, Identity, History, Cookies, Tabs, broad host access, or remote code
+execution.
+
+## Changes to This Policy
+
+Any future update that introduces data collection, requires additional
+permissions, accesses other hosts, or connects to external services must publish
+an updated version of this policy before release.
 
 ## Contact
 
-Privacy issues can be reported through the project's public issue tracker once
-the repository is published. No remote repository is configured in this local
-release-candidate workspace.
+Privacy inquiries or issues can be reported through GitHub:
 
----
-
-# 隐私政策
-
-生效日期：2026-07-04
-
-ChatGPT2Doc 在浏览器本地处理 ChatGPT 对话并生成 DOCX 和 PDF。扩展不向
-开发者服务器收集、出售、传输或保存对话文本、标题、消息标识、浏览历史、导出
-文件或错误内容，也不包含账号、分析、遥测、广告、订阅、许可或远程转换服务。
-
-`storage` 权限仅保存语言、文件名、纸张、是否包含用户提示、文档主题、代码样式、
-对话收集、复制目标、浮动面板位置和诊断显示等本地偏好。数据位于本地
-`chatExport.settings.v2`，可在设置中重置。扩展只在 `https://chatgpt.com/*`
-运行。
-
-如果用户选择 WPS Office 复制兼容，扩展会请求可选 `nativeMessaging` 权限，并且
-只与单独安装的本地 WPS helper 通信，用于把有界 DOCX/OMML 包写入本机剪贴板。
-该 helper 不打开网络端口，也不会传输文档内容。Microsoft Word 兼容复制不需要
-安装 helper。
-
-导出包含远程图片时，扩展可能从图片原地址发起不携带凭据并抑制页面 referrer
-的读取。图片主机仍可能看到正常的请求 URL 和 IP 地址；扩展不会在请求中加入
-对话文本。读取失败时，输出保留链接或可见回退并显示警告。
-
-PDF 所需字体从已安装扩展自身读取，只作为打包扩展资源暴露给 `chatgpt.com`。
+- Project homepage: [https://github.com/Throb7777/chatgpt2doc](https://github.com/Throb7777/chatgpt2doc)
+- Issues: [https://github.com/Throb7777/chatgpt2doc/issues](https://github.com/Throb7777/chatgpt2doc/issues)
