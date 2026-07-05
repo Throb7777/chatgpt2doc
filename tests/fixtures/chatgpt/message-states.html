@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>ChatGPT Message States</title>
+  </head>
+  <body>
+    <main>
+      <article data-message-author-role="user" data-message-id="message-user-1">
+        Complete prompt
+      </article>
+      <article
+        data-message-author-role="assistant"
+        data-testid="conversation-turn-2"
+        data-is-streaming="true"
+      >
+        <div aria-busy="true">Streaming response</div>
+      </article>
+      <article data-message-author-role="system" data-message-id="ignored-system">
+        Unsupported role
+      </article>
+      <article data-message-author-role="assistant">Missing stable identity</article>
+      <section aria-hidden="true">
+        <article data-message-author-role="assistant" data-message-id="hidden-message">
+          Hidden duplicate state
+        </article>
+      </section>
+    </main>
+  </body>
+</html>

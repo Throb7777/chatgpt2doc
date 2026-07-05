@@ -1,0 +1,37 @@
+# Secrets and credentials
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Dependencies, builds, and test output
+node_modules/
+native/wps-helper/dist/
+.wxt/
+.output/
+dist/
+coverage/
+release/
+docs/qa-artifacts/
+docs/qa-screenshots/
+
+# Editors and operating systems
+.vscode/
+.idea/
+Thumbs.db
+.DS_Store
+
+# Logs
+*.log
+
+# Proprietary reference material
+.reference-private/
+.private-docs/
+*.crx
+
+# Local temporary artifacts
+tmp/
+.tmp/
+artifacts/local/
+docs/reference/reference-export-fixture.pdf

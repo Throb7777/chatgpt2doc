@@ -1,0 +1,40 @@
+# Local and VCS state
+.git/
+.agents/
+.codex/
+.reference-private/
+.private-docs/
+.tmp/
+.wxt/
+.output/
+tmp/
+node_modules/
+coverage/
+release/
+
+# Credentials and local machine state
+.env
+.env.*
+*.pem
+*.key
+*.log
+*.crx
+
+# Generated helper/build output
+native/wps-helper/dist/
+dist/
+
+# Internal governance and historical QA material
+AGENTS.md
+PROJECT_PLAN.md
+PROGRESS.md
+REFERENCE_ANALYSIS.md
+docs/reference/
+docs/qa-artifacts/
+docs/qa-screenshots/
+docs/M14_*.md
+docs/M15_*.md
+docs/M16_*.md
+docs/POST_RC_*.md
+docs/RC*.md
+docs/REAL_WORLD_*.md

@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+  <body>
+    <article data-message-author-role="assistant" data-message-id="rich-message">
+      <div class="markdown">
+        <h2>Rich content</h2>
+        <p>Hello <strong>bold</strong> and <em>italic</em> with <code>x &lt; 2</code>, <a href="https://example.com">a link</a>, and <span data-math-source="E=mc^2" data-math-display="inline">E=mc2</span>.<br />Next line.</p>
+        <blockquote><p>Quoted text.</p></blockquote>
+        <ol start="3"><li>Ordered item</li></ol>
+        <ul><li>Outer<ul><li>Nested</li></ul></li></ul>
+        <table>
+          <thead><tr><th align="left">Name</th><th>Value</th></tr></thead>
+          <tbody><tr><td rowspan="2">Alpha</td><td>1</td></tr><tr><td></td></tr></tbody>
+        </table>
+        <pre><code class="language-typescript">const x = "&lt;&gt;&amp;";</code></pre>
+        <div data-math-source="\frac{1}{2}" data-math-display="block">1/2</div>
+        <img src="data:image/png;base64,AA==" alt="Synthetic pixel" width="1" height="1" />
+        <p data-citation="true">See <a href="https://example.com/paper" title="Paper">[1]</a>.</p>
+        <hr />
+        <div data-page-break="before"></div>
+      </div>
+    </article>
+  </body>
+</html>

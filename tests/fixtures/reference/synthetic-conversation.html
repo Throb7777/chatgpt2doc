@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Reference Export Fixture</title>
+  </head>
+  <body>
+    <main role="main" aria-label="Synthetic conversation">
+      <article
+        data-testid="conversation-turn-1"
+        data-message-author-role="user"
+        data-message-id="fixture-user-1"
+      >
+        <div class="whitespace-pre-wrap">
+          Create the deterministic synthetic reference export fixture.
+        </div>
+      </article>
+
+      <article
+        data-testid="conversation-turn-2"
+        data-message-author-role="assistant"
+        data-message-id="fixture-assistant-1"
+      >
+        <div class="markdown prose">
+          <h1>Reference Export Fixture</h1>
+          <p>
+            An English paragraph with <strong>bold</strong>, <em>italic</em>,
+            <code>inline code</code>, and an
+            <a href="https://example.com">example link</a>.
+          </p>
+          <p>这是一段简体中文，用于验证中英文混排、标点和数学符号。</p>
+          <blockquote>Synthetic content only.</blockquote>
+
+          <h2>Lists</h2>
+          <ol>
+            <li>First</li>
+            <li>Second</li>
+            <li>Third</li>
+          </ol>
+          <h3>Nested Examples</h3>
+          <ul>
+            <li>
+              Outer
+              <ul>
+                <li>Nested</li>
+              </ul>
+            </li>
+          </ul>
+
+          <h2>Table</h2>
+          <table>
+            <thead>
+              <tr>
+                <th>English</th>
+                <th>中文</th>
+                <th>Number</th>
+                <th>Empty</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Alpha</td>
+                <td>甲</td>
+                <td>1</td>
+                <td>filled</td>
+              </tr>
+              <tr>
+                <td>Beta</td>
+                <td>乙</td>
+                <td>2</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>Gamma</td>
+                <td>丙</td>
+                <td>3</td>
+                <td>done</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <h2>Code</h2>
+          <pre><code class="language-typescript">function identity&lt;T&gt;(value: T): T {
+  return value;
+}
+const escaped = `&lt;&gt;&amp;&quot;${1}`;</code></pre>
+
+          <h2>Mathematics</h2>
+          <p>
+            Inline
+            <span data-math-source="E = mc^2" data-math-display="inline">E = mc²</span>.
+          </p>
+          <div data-math-source="\frac{a}{b}" data-math-display="block">a/b</div>
+          <div data-math-source="\sqrt{x}" data-math-display="block">√x</div>
+          <div data-math-source="\sum_{i=1}^{n} i" data-math-display="block">Σ i</div>
+          <div data-math-source="\int_0^1 x\,dx" data-math-display="block">∫ x dx</div>
+          <div
+            data-math-source="\begin{bmatrix}1 &amp; 2 \\ 3 &amp; 4\end{bmatrix}"
+            data-math-display="block"
+          >
+            [1 2; 3 4]
+          </div>
+          <div data-math-source="x^2" data-math-display="block">x²</div>
+          <div data-math-source="x_i" data-math-display="block">xᵢ</div>
+
+          <h2>Image</h2>
+          <svg
+            role="img"
+            aria-label="Synthetic three-bar chart"
+            width="240"
+            height="100"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <rect width="240" height="100" fill="#ffffff" />
+            <rect x="20" y="50" width="40" height="40" fill="#2563eb" />
+            <rect x="90" y="30" width="40" height="60" fill="#16a34a" />
+            <rect x="160" y="10" width="40" height="80" fill="#dc2626" />
+          </svg>
+
+          <h2>Citation</h2>
+          <p data-citation="true">
+            [1] Synthetic citation:
+            <a href="https://example.com">Example Domain</a>.
+          </p>
+
+          <h2>Long Section</h2>
+          <p>P01: This is deterministic pagination text. It contains no private information.</p>
+          <p>P02: This is deterministic pagination text. It contains no private information.</p>
+          <p>P03: This is deterministic pagination text. It contains no private information.</p>
+          <p>P04: This is deterministic pagination text. It contains no private information.</p>
+          <p>P05: This is deterministic pagination text. It contains no private information.</p>
+          <p>P06: This is deterministic pagination text. It contains no private information.</p>
+          <p>P07: This is deterministic pagination text. It contains no private information.</p>
+          <p>P08: This is deterministic pagination text. It contains no private information.</p>
+          <p>P09: This is deterministic pagination text. It contains no private information.</p>
+          <p>P10: This is deterministic pagination text. It contains no private information.</p>
+          <p>P11: This is deterministic pagination text. It contains no private information.</p>
+          <p>P12: This is deterministic pagination text. It contains no private information.</p>
+        </div>
+      </article>
+    </main>
+  </body>
+</html>

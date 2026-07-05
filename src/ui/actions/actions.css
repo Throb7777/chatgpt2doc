@@ -1,0 +1,728 @@
+.chat-export-action-group {
+  align-items: center;
+  color: inherit;
+  display: flex;
+  font: 500 12px/1.2 ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  gap: 3px;
+}
+
+.chat-export-sr-only {
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  height: 1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
+
+.chat-export-action-group--conversation {
+  justify-content: flex-end;
+  padding: 8px 12px;
+}
+
+.chat-export-action-group--response {
+  justify-content: flex-start;
+  margin-top: 6px;
+  opacity: 0.42;
+  transition: opacity 120ms ease;
+}
+
+.chat-export-action-group--response:focus-within,
+.chat-export-action-group--response:hover {
+  opacity: 0.96;
+}
+
+.chat-export-action-group--response .chat-export-action-label {
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
+
+.chat-export-floating-panel {
+  align-items: center;
+  backdrop-filter: blur(10px);
+  background: color-mix(in srgb, Canvas 88%, transparent);
+  border: 1px solid color-mix(in srgb, CanvasText 12%, transparent);
+  border-radius: 999px;
+  box-shadow:
+    0 1px 2px rgb(0 0 0 / 8%),
+    0 8px 20px rgb(0 0 0 / 8%);
+  color: CanvasText;
+  display: flex;
+  font: 500 12px/1.2 ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  gap: 2px;
+  max-width: calc(100vw - 32px);
+  opacity: 0.72;
+  padding: 3px;
+  position: fixed;
+  right: max(16px, env(safe-area-inset-right));
+  top: max(60px, env(safe-area-inset-top));
+  transition:
+    background-color 140ms ease,
+    border-color 140ms ease,
+    box-shadow 140ms ease,
+    opacity 140ms ease;
+  z-index: 2147483645;
+}
+
+.chat-export-floating-panel:focus-within,
+.chat-export-floating-panel:hover {
+  background: color-mix(in srgb, Canvas 94%, transparent);
+  border-color: color-mix(in srgb, CanvasText 18%, transparent);
+  box-shadow:
+    0 1px 3px rgb(0 0 0 / 10%),
+    0 10px 24px rgb(0 0 0 / 10%);
+  opacity: 0.98;
+}
+
+.chat-export-floating-command {
+  align-items: center;
+  display: inline-flex;
+  gap: 0;
+  justify-content: center;
+  min-height: 32px;
+  min-width: 32px;
+  padding: 4px;
+  white-space: nowrap;
+}
+
+.chat-export-floating-panel--collapsed .chat-export-floating-command {
+  justify-content: center;
+  min-width: 32px;
+  padding: 4px;
+}
+
+.chat-export-panel-icon {
+  display: block;
+  fill: none;
+  height: 18px;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.5;
+  width: 18px;
+}
+
+.chat-export-panel-drag-handle {
+  align-items: center;
+  appearance: none;
+  background: transparent;
+  border: 0;
+  border-left: 1px solid color-mix(in srgb, CanvasText 12%, transparent);
+  color: color-mix(in srgb, CanvasText 54%, transparent);
+  cursor: grab;
+  display: inline-flex;
+  justify-content: center;
+  margin-left: 2px;
+  min-height: 24px;
+  min-width: 18px;
+  padding: 3px 2px 3px 5px;
+  transition:
+    border-color 120ms ease,
+    color 120ms ease,
+    opacity 120ms ease;
+}
+
+.chat-export-panel-drag-handle:hover:not(:disabled),
+.chat-export-panel-drag-handle:focus-visible {
+  border-left-color: color-mix(in srgb, CanvasText 20%, transparent);
+  color: color-mix(in srgb, CanvasText 76%, transparent);
+}
+
+.chat-export-panel-drag-handle:active {
+  cursor: grabbing;
+}
+
+.chat-export-panel-drag-handle:focus-visible {
+  border-radius: 8px;
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+}
+
+.chat-export-panel-grip {
+  background-image: radial-gradient(currentColor 0.9px, transparent 1.4px);
+  background-position: 0 0;
+  background-size: 4px 4px;
+  display: block;
+  height: 12px;
+  opacity: 0.64;
+  width: 8px;
+}
+
+.chat-export-action-button {
+  background: color-mix(in srgb, currentColor 3%, transparent);
+  border: 1px solid color-mix(in srgb, currentColor 10%, transparent);
+  border-radius: 999px;
+  box-shadow: 0 0 0 rgb(0 0 0 / 0%);
+  color: inherit;
+  cursor: pointer;
+  min-height: 32px;
+  padding: 4px 9px;
+  transform: translateY(0) scale(1);
+  transition:
+    background-color 120ms ease,
+    border-color 120ms ease,
+    box-shadow 120ms ease,
+    color 120ms ease,
+    opacity 120ms ease,
+    transform 120ms ease;
+}
+
+.chat-export-action-button:hover:not(:disabled) {
+  background: color-mix(in srgb, currentColor 8%, transparent);
+  border-color: color-mix(in srgb, currentColor 18%, transparent);
+  box-shadow: 0 3px 8px rgb(0 0 0 / 10%);
+  transform: translateY(-1px) scale(1);
+}
+
+.chat-export-action-button:active:not(:disabled) {
+  box-shadow: 0 1px 3px rgb(0 0 0 / 8%);
+  transform: translateY(0) scale(0.98);
+}
+
+.chat-export-action-button:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+}
+
+.chat-export-action-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.45;
+  transform: none;
+}
+
+.chat-export-format-button {
+  align-items: center;
+  background: transparent;
+  border-color: color-mix(in srgb, currentColor 10%, transparent);
+  color: color-mix(in srgb, CanvasText 68%, transparent);
+  display: inline-grid;
+  justify-items: center;
+  min-height: 32px;
+  min-width: 32px;
+  padding: 3px;
+  position: relative;
+}
+
+.chat-export-format-button:hover:not(:disabled) {
+  background: color-mix(in srgb, currentColor 6%, transparent);
+  border-color: color-mix(in srgb, currentColor 18%, transparent);
+  color: color-mix(in srgb, CanvasText 88%, transparent);
+}
+
+.chat-export-format-icon {
+  display: block;
+  height: 28px;
+  width: 28px;
+}
+
+.chat-export-format-icon-page {
+  stroke-linejoin: round;
+  stroke-width: 1.35;
+}
+
+.chat-export-format-icon-page--outline {
+  fill: none;
+  stroke: currentColor;
+}
+
+.chat-export-format-icon-page--filled {
+  fill: color-mix(in srgb, currentColor 64%, transparent);
+  stroke: color-mix(in srgb, currentColor 64%, transparent);
+}
+
+.chat-export-format-icon-fold {
+  fill: none;
+  stroke: currentColor;
+  stroke-linejoin: round;
+  stroke-width: 1.35;
+}
+
+.chat-export-format-icon-fold--pdf {
+  stroke: Canvas;
+}
+
+.chat-export-format-icon-mark {
+  dominant-baseline: middle;
+  fill: currentColor;
+  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-size: 9.4px;
+  font-weight: 780;
+  letter-spacing: -0.04em;
+  text-anchor: middle;
+}
+
+.chat-export-format-icon-mark--docx {
+  font-size: 12px;
+  letter-spacing: -0.12em;
+}
+
+.chat-export-format-icon-mark--pdf {
+  fill: Canvas;
+  font-size: 8px;
+  letter-spacing: -0.06em;
+}
+
+.chat-export-selection-toggle {
+  align-items: center;
+  border-radius: 8px;
+  color: inherit;
+  cursor: pointer;
+  display: inline-flex;
+  font: 500 12px/1.2 ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  gap: 6px;
+  margin: -4px -6px 4px;
+  padding: 4px 6px;
+  transition:
+    background-color 120ms ease,
+    box-shadow 120ms ease;
+}
+
+.chat-export-selection-toggle:hover:not(:has(input:disabled)) {
+  background: color-mix(in srgb, currentColor 7%, transparent);
+}
+
+.chat-export-selection-toggle:has(input:focus-visible) {
+  background: color-mix(in srgb, currentColor 6%, transparent);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, currentColor 26%, transparent);
+}
+
+.chat-export-selection-toggle input {
+  accent-color: currentColor;
+  height: 16px;
+  margin: 0;
+  transition: filter 120ms ease, transform 120ms ease;
+  width: 16px;
+}
+
+.chat-export-selection-toggle:hover:not(:has(input:disabled)) input {
+  filter: contrast(1.08);
+  transform: scale(1.06);
+}
+
+.chat-export-selection-toggle:has(input:disabled) {
+  cursor: not-allowed;
+  opacity: 0.45;
+}
+
+.chat-export-selection-bar {
+  align-items: center;
+  backdrop-filter: blur(12px);
+  background: color-mix(in srgb, Canvas 92%, transparent);
+  border: 1px solid color-mix(in srgb, currentColor 18%, transparent);
+  border-radius: 12px;
+  bottom: 16px;
+  box-shadow: 0 8px 32px rgb(0 0 0 / 20%);
+  color: CanvasText;
+  display: flex;
+  gap: 16px;
+  justify-content: space-between;
+  left: 50%;
+  max-width: min(560px, calc(100vw - 32px));
+  padding: 10px 12px;
+  position: fixed;
+  transform: translateX(-50%);
+  width: max-content;
+  z-index: 2147483646;
+}
+
+.chat-export-selection-status {
+  font: 500 13px/1.3 ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  margin: 0;
+}
+
+.chat-export-selection-actions {
+  display: flex;
+  gap: 6px;
+}
+
+@media (max-width: 520px) {
+  .chat-export-floating-panel {
+    border-radius: 16px;
+    flex-wrap: nowrap;
+    justify-content: flex-end;
+    padding: 4px;
+    top: max(12px, env(safe-area-inset-top));
+  }
+
+  .chat-export-floating-command {
+    justify-content: center;
+    min-width: 32px;
+    padding: 4px;
+  }
+
+  .chat-export-selection-bar {
+    align-items: stretch;
+    flex-direction: column;
+    width: calc(100vw - 32px);
+  }
+
+  .chat-export-selection-actions {
+    justify-content: flex-end;
+  }
+}
+
+.chat-export-settings-backdrop {
+  align-items: center;
+  background: rgb(0 0 0 / 48%);
+  display: flex;
+  inset: 0;
+  justify-content: center;
+  padding: 16px;
+  position: fixed;
+  z-index: 2147483647;
+}
+
+.chat-export-settings-panel {
+  background: Canvas;
+  border: 1px solid color-mix(in srgb, CanvasText 18%, transparent);
+  border-radius: 14px;
+  box-shadow: 0 18px 60px rgb(0 0 0 / 32%);
+  color: CanvasText;
+  display: grid;
+  gap: 12px;
+  max-height: calc(100vh - 32px);
+  max-width: 460px;
+  overflow: auto;
+  padding: 20px;
+  width: 100%;
+}
+
+.chat-export-settings-panel h2 {
+  font: 600 18px/1.3 ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  margin: 0 0 4px;
+}
+
+.chat-export-settings-section {
+  border: 1px solid color-mix(in srgb, CanvasText 12%, transparent);
+  border-radius: 10px;
+  display: grid;
+  gap: 10px;
+  margin: 0;
+  padding: 12px;
+}
+
+.chat-export-settings-section legend {
+  font: 700 12px/1.2 ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  padding: 0 4px;
+}
+
+.chat-export-settings-panel label:not(.chat-export-settings-checkbox) {
+  display: grid;
+  font: 500 13px/1.3 ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  gap: 6px;
+}
+
+.chat-export-settings-panel input[type="text"],
+.chat-export-settings-panel input[type="number"],
+.chat-export-settings-panel select {
+  background: color-mix(in srgb, CanvasText 5%, Canvas);
+  border: 1px solid color-mix(in srgb, CanvasText 22%, transparent);
+  border-radius: 8px;
+  color: CanvasText;
+  font: inherit;
+  min-height: 36px;
+  padding: 6px 8px;
+  transition:
+    background-color 120ms ease,
+    border-color 120ms ease,
+    box-shadow 120ms ease;
+}
+
+.chat-export-settings-panel input[type="text"]:hover,
+.chat-export-settings-panel input[type="number"]:hover,
+.chat-export-settings-panel select:hover {
+  background: color-mix(in srgb, CanvasText 7%, Canvas);
+  border-color: color-mix(in srgb, CanvasText 34%, transparent);
+}
+
+.chat-export-settings-panel input:focus-visible,
+.chat-export-settings-panel select:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+}
+
+.chat-export-settings-checkbox {
+  align-items: center;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  font: 500 13px/1.3 ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  gap: 8px;
+  margin: -5px -7px;
+  padding: 5px 7px;
+  transition:
+    background-color 120ms ease,
+    box-shadow 120ms ease;
+}
+
+.chat-export-settings-checkbox:hover {
+  background: color-mix(in srgb, CanvasText 6%, transparent);
+}
+
+.chat-export-settings-checkbox:has(input:focus-visible) {
+  background: color-mix(in srgb, CanvasText 7%, transparent);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, CanvasText 26%, transparent);
+}
+
+.chat-export-settings-checkbox input {
+  accent-color: currentColor;
+  height: 16px;
+  margin: 0;
+  transition: filter 120ms ease, transform 120ms ease;
+  width: 16px;
+}
+
+.chat-export-settings-checkbox:hover input {
+  filter: contrast(1.08);
+  transform: scale(1.06);
+}
+
+.chat-export-settings-actions {
+  display: flex;
+  gap: 6px;
+  justify-content: flex-end;
+  margin-top: 4px;
+}
+
+.chat-export-settings-integration {
+  align-items: center;
+  background: color-mix(in srgb, CanvasText 3%, Canvas);
+  border: 1px solid color-mix(in srgb, CanvasText 12%, transparent);
+  border-radius: 10px;
+  display: grid;
+  gap: 8px;
+  padding: 11px 12px;
+}
+
+.chat-export-settings-integration-header {
+  align-items: center;
+  display: flex;
+  gap: 10px;
+  justify-content: space-between;
+}
+
+.chat-export-settings-integration-title {
+  font: 650 13px/1.3 ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+.chat-export-settings-integration-status {
+  background: color-mix(in srgb, CanvasText 7%, transparent);
+  border-radius: 999px;
+  color: color-mix(in srgb, CanvasText 72%, transparent);
+  font: 600 11px/1.2 ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  padding: 4px 7px;
+}
+
+.chat-export-settings-integration p {
+  color: color-mix(in srgb, CanvasText 68%, transparent);
+  font: 450 12px/1.45 ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  margin: 0;
+}
+
+.chat-export-settings-integration .chat-export-settings-diagnostic {
+  background: color-mix(in srgb, CanvasText 5%, transparent);
+  border-radius: 7px;
+  color: color-mix(in srgb, CanvasText 72%, transparent);
+  font: 500 11px/1.45 ui-monospace, "SFMono-Regular", Consolas, monospace;
+  overflow-wrap: anywhere;
+  padding: 6px 7px;
+}
+
+.chat-export-settings-integration .chat-export-action-button {
+  justify-self: start;
+  min-height: 30px;
+}
+
+.chat-export-copy-targets {
+  display: grid;
+  gap: 8px;
+}
+
+.chat-export-copy-target {
+  align-items: flex-start;
+  background: color-mix(in srgb, Canvas 82%, CanvasText 4%);
+  border: 1px solid color-mix(in srgb, CanvasText 10%, transparent);
+  border-radius: 11px;
+  cursor: pointer;
+  display: grid;
+  gap: 9px;
+  grid-template-columns: auto 1fr;
+  padding: 10px;
+  transform: translateY(0) scale(1);
+  transition:
+    background-color 120ms ease,
+    border-color 120ms ease,
+    box-shadow 120ms ease,
+    transform 120ms ease;
+}
+
+.chat-export-copy-target:hover {
+  background: color-mix(in srgb, CanvasText 6%, Canvas);
+  border-color: color-mix(in srgb, CanvasText 22%, transparent);
+  box-shadow: 0 4px 12px rgb(0 0 0 / 8%);
+  transform: translateY(-1px) scale(1);
+}
+
+.chat-export-copy-target:active {
+  box-shadow: 0 1px 4px rgb(0 0 0 / 6%);
+  transform: translateY(0) scale(0.99);
+}
+
+.chat-export-copy-target:has(input:checked) {
+  background: color-mix(in srgb, CanvasText 7%, Canvas);
+  border-color: color-mix(in srgb, CanvasText 30%, transparent);
+  box-shadow: 0 1px 4px rgb(0 0 0 / 7%);
+}
+
+.chat-export-copy-target:has(input:checked):hover {
+  background: color-mix(in srgb, CanvasText 9%, Canvas);
+  border-color: color-mix(in srgb, CanvasText 36%, transparent);
+  box-shadow: 0 4px 12px rgb(0 0 0 / 10%);
+}
+
+.chat-export-copy-target:has(input:focus-visible) {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+}
+
+.chat-export-copy-target input {
+  accent-color: currentColor;
+  height: 16px;
+  margin: 2px 0 0;
+  transition: filter 120ms ease, transform 120ms ease;
+  width: 16px;
+}
+
+.chat-export-copy-target:hover input {
+  filter: contrast(1.08);
+  transform: scale(1.06);
+}
+
+.chat-export-copy-target strong,
+.chat-export-copy-target small {
+  display: block;
+}
+
+.chat-export-copy-target strong {
+  font: 650 13px/1.3 ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+.chat-export-copy-target small {
+  color: color-mix(in srgb, CanvasText 62%, transparent);
+  font: 450 12px/1.45 ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  margin-top: 2px;
+}
+
+.chat-export-extension-id {
+  align-items: center;
+  display: grid;
+  gap: 7px;
+  grid-template-columns: 1fr auto;
+}
+
+.chat-export-extension-id > span {
+  color: color-mix(in srgb, CanvasText 68%, transparent);
+  font: 600 11px/1.25 ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  grid-column: 1 / -1;
+}
+
+.chat-export-extension-id code {
+  background: color-mix(in srgb, CanvasText 6%, transparent);
+  border-radius: 7px;
+  color: color-mix(in srgb, CanvasText 78%, transparent);
+  font: 500 11px/1.35 ui-monospace, "SFMono-Regular", Consolas, monospace;
+  overflow: hidden;
+  padding: 6px 7px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.chat-export-wps-copy-toast {
+  bottom: 1rem;
+}
+
+.chat-export-progress {
+  align-items: center;
+  backdrop-filter: blur(12px);
+  background: color-mix(in srgb, Canvas 94%, transparent);
+  border: 1px solid color-mix(in srgb, CanvasText 14%, transparent);
+  border-radius: 14px;
+  bottom: 1rem;
+  box-shadow:
+    0 1px 2px rgb(0 0 0 / 8%),
+    0 10px 28px rgb(0 0 0 / 12%);
+  color: CanvasText;
+  display: flex;
+  font: 500 13px/1.35 ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  gap: 0.625rem;
+  max-width: min(28rem, calc(100vw - 2rem));
+  padding: 0.625rem 0.75rem;
+  position: fixed;
+  right: 1rem;
+  z-index: 2147483647;
+}
+
+.chat-export-progress-spinner {
+  animation: chat-export-spin 760ms linear infinite;
+  border: 2px solid color-mix(in srgb, currentColor 16%, transparent);
+  border-radius: 999px;
+  border-top-color: color-mix(in srgb, currentColor 72%, transparent);
+  flex: 0 0 auto;
+  height: 16px;
+  width: 16px;
+}
+
+.chat-export-progress p {
+  margin: 0;
+}
+
+@keyframes chat-export-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .chat-export-action-button,
+  .chat-export-copy-target,
+  .chat-export-copy-target input,
+  .chat-export-selection-toggle,
+  .chat-export-selection-toggle input,
+  .chat-export-settings-checkbox,
+  .chat-export-settings-checkbox input,
+  .chat-export-settings-panel input,
+  .chat-export-settings-panel select {
+    transition: none;
+  }
+
+  .chat-export-action-button:hover:not(:disabled),
+  .chat-export-action-button:active:not(:disabled),
+  .chat-export-copy-target:hover,
+  .chat-export-copy-target:active,
+  .chat-export-copy-target:hover input,
+  .chat-export-selection-toggle:hover input,
+  .chat-export-settings-checkbox:hover input {
+    transform: none;
+  }
+}
+
+.chat-export-warning-report {
+  max-height: min(18rem, 45vh);
+  overflow: auto;
+}
+
+.chat-export-warning-report ul {
+  margin: 0.5rem 0 0;
+  padding-left: 1.25rem;
+}
+
+.chat-export-warning-report li + li {
+  margin-top: 0.5rem;
+}

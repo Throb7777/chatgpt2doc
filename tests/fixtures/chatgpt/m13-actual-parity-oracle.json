@@ -1,0 +1,28 @@
+{
+  "fixture": "m13-actual-parity-shapes.html",
+  "privacyBoundary": "sanitized-derived-fixture-only",
+  "requiredInlineMath": [
+    "τ∈[0,H]",
+    "Zint=Tmα∩RUA"
+  ],
+  "requiredDisplayMath": [
+    "Zint↓q=3"
+  ],
+  "requiredExplicitMath": [
+    "\\mathcal{Z}_{int}"
+  ],
+  "requiredTextFigureLabels": [
+    "local overlap",
+    "T_m^α",
+    "Z_int",
+    "R_UA",
+    "control action",
+    "v_u(t)"
+  ],
+  "negativeTextControls": [
+    "version 2.9.0",
+    "2026-06-29",
+    "https://example.com/a/b",
+    "A/B testing"
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "fixture": "m14-live-export-shapes.html",
+  "evidenceBasis": "sanitized-reconstruction-from-verified-live-export-shapes",
+  "directChromeRevalidation": "required-in-M14.6",
+  "requiredMath": [
+    "τ∈[0,H]",
+    "x_u(t)=(c_u,s_u,v_u,q_u)",
+    "q=1→q=2→q=3→q=4",
+    "Zint=Tmα∩RUA",
+    "\\mathcal{Z}_{int}"
+  ],
+  "requiredTextFigureMath": [
+    "\\mathcal{T}_m^\\alpha",
+    "\\mathcal{Z}_{int}",
+    "\\mathcal{R}_{UA}",
+    "v_u(t)"
+  ],
+  "negativeTextControls": [
+    "version 2.9.0",
+    "2026-06-29",
+    "https://example.com/a/b",
+    "A/B testing"
+  ]
+}

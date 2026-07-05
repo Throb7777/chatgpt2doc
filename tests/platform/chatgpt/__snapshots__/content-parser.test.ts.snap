@@ -1,0 +1,282 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`ChatGPT rich-content parser > matches the representative AST snapshot exactly 1`] = `
+[
+  {
+    "children": [
+      {
+        "kind": "text",
+        "value": "Rich content",
+      },
+    ],
+    "kind": "heading",
+    "level": 2,
+  },
+  {
+    "children": [
+      {
+        "kind": "text",
+        "value": "Hello ",
+      },
+      {
+        "children": [
+          {
+            "kind": "text",
+            "value": "bold",
+          },
+        ],
+        "kind": "strong",
+      },
+      {
+        "kind": "text",
+        "value": " and ",
+      },
+      {
+        "children": [
+          {
+            "kind": "text",
+            "value": "italic",
+          },
+        ],
+        "kind": "emphasis",
+      },
+      {
+        "kind": "text",
+        "value": " with ",
+      },
+      {
+        "kind": "inlineCode",
+        "value": "x < 2",
+      },
+      {
+        "kind": "text",
+        "value": ", ",
+      },
+      {
+        "children": [
+          {
+            "kind": "text",
+            "value": "a link",
+          },
+        ],
+        "href": "https://example.com",
+        "kind": "link",
+      },
+      {
+        "kind": "text",
+        "value": ", and ",
+      },
+      {
+        "fallbackText": "E=mc2",
+        "kind": "mathInline",
+        "provenance": "explicit",
+        "source": "E=mc^2",
+        "sourceFormat": "tex",
+      },
+      {
+        "kind": "text",
+        "value": ".",
+      },
+      {
+        "kind": "lineBreak",
+      },
+      {
+        "kind": "text",
+        "value": "Next line.",
+      },
+    ],
+    "kind": "paragraph",
+  },
+  {
+    "children": [
+      {
+        "children": [
+          {
+            "kind": "text",
+            "value": "Quoted text.",
+          },
+        ],
+        "kind": "paragraph",
+      },
+    ],
+    "kind": "blockquote",
+  },
+  {
+    "items": [
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "kind": "text",
+                "value": "Ordered item",
+              },
+            ],
+            "kind": "paragraph",
+          },
+        ],
+      },
+    ],
+    "kind": "orderedList",
+    "start": 3,
+  },
+  {
+    "items": [
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "kind": "text",
+                "value": "Outer",
+              },
+            ],
+            "kind": "paragraph",
+          },
+          {
+            "items": [
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "kind": "text",
+                        "value": "Nested",
+                      },
+                    ],
+                    "kind": "paragraph",
+                  },
+                ],
+              },
+            ],
+            "kind": "unorderedList",
+          },
+        ],
+      },
+    ],
+    "kind": "unorderedList",
+  },
+  {
+    "header": {
+      "cells": [
+        {
+          "alignment": "left",
+          "children": [
+            {
+              "children": [
+                {
+                  "kind": "text",
+                  "value": "Name",
+                },
+              ],
+              "kind": "paragraph",
+            },
+          ],
+        },
+        {
+          "children": [
+            {
+              "children": [
+                {
+                  "kind": "text",
+                  "value": "Value",
+                },
+              ],
+              "kind": "paragraph",
+            },
+          ],
+        },
+      ],
+    },
+    "kind": "table",
+    "rows": [
+      {
+        "cells": [
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "kind": "text",
+                    "value": "Alpha",
+                  },
+                ],
+                "kind": "paragraph",
+              },
+            ],
+            "rowSpan": 2,
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "kind": "text",
+                    "value": "1",
+                  },
+                ],
+                "kind": "paragraph",
+              },
+            ],
+          },
+        ],
+      },
+      {
+        "cells": [
+          {
+            "children": [],
+          },
+        ],
+      },
+    ],
+  },
+  {
+    "kind": "codeBlock",
+    "language": "typescript",
+    "presentation": "code",
+    "value": "const x = "<>&";",
+  },
+  {
+    "fallbackText": "1/2",
+    "kind": "mathBlock",
+    "provenance": "explicit",
+    "source": "\\frac{1}{2}",
+    "sourceFormat": "tex",
+  },
+  {
+    "alt": "Synthetic pixel",
+    "height": 1,
+    "kind": "image",
+    "source": {
+      "kind": "data-url",
+      "value": "data:image/png;base64,AA==",
+    },
+    "width": 1,
+  },
+  {
+    "children": [
+      {
+        "kind": "text",
+        "value": "See ",
+      },
+      {
+        "href": "https://example.com/paper",
+        "kind": "citation",
+        "label": "[1]",
+        "title": "Paper",
+      },
+      {
+        "kind": "text",
+        "value": ".",
+      },
+    ],
+    "kind": "paragraph",
+  },
+  {
+    "kind": "separator",
+  },
+  {
+    "kind": "pageBreak",
+  },
+]
+`;
