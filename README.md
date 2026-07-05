@@ -44,8 +44,8 @@ automatically.
 
 Project source and release downloads:
 
-- https://github.com/Throb7777/chatgpt2doc
-- https://github.com/Throb7777/chatgpt2doc/releases
+- [https://github.com/Throb7777/chatgpt2doc](https://github.com/Throb7777/chatgpt2doc)
+- [https://github.com/Throb7777/chatgpt2doc/releases](https://github.com/Throb7777/chatgpt2doc/releases)
 
 ### Load the current build manually
 

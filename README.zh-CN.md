@@ -36,8 +36,8 @@ ChatGPT2Doc 会在 ChatGPT 页面中直接加入 DOCX 和 PDF 操作，可以导
 
 源码和版本下载地址：
 
-- https://github.com/Throb7777/chatgpt2doc
-- https://github.com/Throb7777/chatgpt2doc/releases
+- [https://github.com/Throb7777/chatgpt2doc](https://github.com/Throb7777/chatgpt2doc)
+- [https://github.com/Throb7777/chatgpt2doc/releases](https://github.com/Throb7777/chatgpt2doc/releases)
 
 ### 手动加载当前版本
 

@@ -38,8 +38,9 @@ Settings include English or Simplified Chinese, A4 or Letter paper, custom
 file name, prompt inclusion, document theme, code style, optional diagnostics,
 and Word/WPS copy target.
 
-Source code, documentation, and issue tracker:
+Project source, documentation, issue tracker, and release downloads:
 https://github.com/Throb7777/chatgpt2doc
+https://github.com/Throb7777/chatgpt2doc/releases
 
 The project source is available for noncommercial use under the PolyForm
 Noncommercial License 1.0.0. Commercial use requires separate permission.

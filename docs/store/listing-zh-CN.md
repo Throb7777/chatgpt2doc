@@ -22,8 +22,9 @@ ChatGPT2Doc 会在 ChatGPT 页面中加入简洁的 DOCX 和 PDF 操作。你可
 
 设置包括英文或简体中文、A4 或 Letter、自定义文件名、是否包含用户提示、文档主题、代码样式、可选诊断信息，以及 Word/WPS 复制目标。
 
-源码、说明文档和问题反馈：
+源码、说明文档、问题反馈和版本下载：
 https://github.com/Throb7777/chatgpt2doc
+https://github.com/Throb7777/chatgpt2doc/releases
 
 项目源码按照 PolyForm Noncommercial License 1.0.0 提供，仅允许非商业用途；商业使用需要另行获得许可。
 
