@@ -51,7 +51,7 @@ const nextResponse = responseReader(host.stdout);
 const pingResponse = nextResponse();
 host.stdin.write(frame({ operation: 'ping' }));
 const ping = await pingResponse;
-if (!ping.ok || ping.protocolVersion !== 1 || !ping.wpsInstalled) {
+if (!ping.ok || ping.protocolVersion !== 1 || typeof ping.wpsInstalled !== 'boolean') {
   throw new Error(`Unexpected helper ping: ${JSON.stringify(ping)}`);
 }
 

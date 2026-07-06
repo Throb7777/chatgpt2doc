@@ -42,7 +42,7 @@ describe('WPS settings integration', () => {
                 },
                 helperVersion: '0.1.0',
                 protocolVersion: 1,
-                wpsInstalled: true,
+                wpsInstalled: false,
               }),
       },
     });
@@ -64,6 +64,9 @@ describe('WPS settings integration', () => {
     expect(dom.window.document.body.textContent).toContain('abcdefghijklmnopabcdefghijklmnop');
     expect(dom.window.document.body.textContent).toContain(
       'Binding matches the current extension.',
+    );
+    expect(dom.window.document.body.textContent).toContain(
+      'WPS installation was not detected through COM, but the helper can still prepare WPS clipboard content.',
     );
     expect(dom.window.document.body.textContent).toContain(
       'C:\\Users\\Test\\AppData\\Local\\ChatGPT2Doc\\WpsHelper',

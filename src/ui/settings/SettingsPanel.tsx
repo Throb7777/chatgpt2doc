@@ -31,6 +31,7 @@ export function SettingsPanel({
   );
   const [wpsStatusDetail, setWpsStatusDetail] = useState('');
   const [wpsDiagnostics, setWpsDiagnostics] = useState<WpsHelperDiagnostics | undefined>();
+  const [wpsInstalled, setWpsInstalled] = useState<boolean | undefined>();
   const [extensionIdCopied, setExtensionIdCopied] = useState(false);
   const languageRef = useRef<HTMLSelectElement>(null);
   const panelRef = useRef<HTMLElement>(null);
@@ -45,6 +46,7 @@ export function SettingsPanel({
       setWpsStatus(status.capability);
       setWpsStatusDetail(status.detail ?? '');
       setWpsDiagnostics(status.diagnostics);
+      setWpsInstalled(status.wpsInstalled);
     });
     return () => { active = false; };
   }, [settings.copyTarget]);
@@ -56,32 +58,38 @@ export function SettingsPanel({
       setWpsStatus('off');
       setWpsStatusDetail('');
       setWpsDiagnostics(undefined);
+      setWpsInstalled(undefined);
       return;
     }
     setWpsStatus('checking');
     setWpsStatusDetail('');
     setWpsDiagnostics(undefined);
+    setWpsInstalled(undefined);
     setDraft((current) => ({ ...current, copyTarget: 'wps', wpsEditableCopy: true }));
     if (!await requestWpsPermission()) {
       setWpsStatus('permission-denied');
       setWpsStatusDetail('');
       setWpsDiagnostics(undefined);
+      setWpsInstalled(undefined);
       return;
     }
     const status = await inspectWpsHelper();
     setWpsStatus(status.capability);
     setWpsStatusDetail(status.detail ?? '');
     setWpsDiagnostics(status.diagnostics);
+    setWpsInstalled(status.wpsInstalled);
   };
 
   const recheckWps = async () => {
     setWpsStatus('checking');
     setWpsStatusDetail('');
     setWpsDiagnostics(undefined);
+    setWpsInstalled(undefined);
     const status = await inspectWpsHelper();
     setWpsStatus(status.capability);
     setWpsStatusDetail(status.detail ?? '');
     setWpsDiagnostics(status.diagnostics);
+    setWpsInstalled(status.wpsInstalled);
   };
 
   const copyExtensionId = async () => {
@@ -393,6 +401,15 @@ export function SettingsPanel({
                 >
                   {helperBindingMatches ? strings.wpsBindingMatches : strings.wpsBindingMismatch}
                 </p>
+                {typeof wpsInstalled === 'boolean' ? (
+                  <p
+                    class={wpsInstalled
+                      ? 'chat-export-settings-ok'
+                      : 'chat-export-settings-warning'}
+                  >
+                    {wpsInstalled ? strings.wpsDetected : strings.wpsNotDetected}
+                  </p>
+                ) : null}
                 <span>{strings.wpsHelperInstallPath}</span>
                 <code>{wpsDiagnostics.installPath || '—'}</code>
               </div>

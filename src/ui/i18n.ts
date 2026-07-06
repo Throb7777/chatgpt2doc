@@ -79,6 +79,8 @@ export interface UiStrings {
   wpsBindingMismatch: string;
   wpsHelperInstallPath: string;
   wpsInstallHint: string;
+  wpsDetected: string;
+  wpsNotDetected: string;
   wpsRebindHint: string;
   wpsStatusChecking: string;
   wpsStatusDenied: string;
@@ -177,6 +179,8 @@ const EN: UiStrings = {
   wpsBindingMismatch: 'Binding does not match the current extension. Re-run the installer with the current ID.',
   wpsHelperInstallPath: 'Helper install path',
   wpsInstallHint: 'Install the local helper, then check again.',
+  wpsDetected: 'WPS installation detected.',
+  wpsNotDetected: 'WPS installation was not detected through COM, but the helper can still prepare WPS clipboard content.',
   wpsRebindHint: 'If the helper is already installed, re-run the installer for this extension ID.',
   wpsStatusChecking: 'Checking',
   wpsStatusDenied: 'Permission denied',
@@ -275,6 +279,8 @@ const ZH_CN: UiStrings = {
   wpsBindingMismatch: '绑定信息与当前扩展不一致，请使用当前 ID 重新运行安装器。',
   wpsHelperInstallPath: '增强组件安装路径',
   wpsInstallHint: '安装本地 helper 后重新检查。',
+  wpsDetected: '已检测到 WPS 安装。',
+  wpsNotDetected: '未通过 COM 检测到 WPS，但增强组件仍可准备 WPS 剪贴板内容。',
   wpsRebindHint: '如果已安装增强组件，请使用当前扩展 ID 重新运行安装器。',
   wpsStatusChecking: '检查中',
   wpsStatusDenied: '权限已拒绝',

@@ -65,6 +65,7 @@ describe('WPS integration client', () => {
       diagnostics: {
         allowedExtensionIds: ['abcdefghijklmnopabcdefghijklmnop'],
       },
+      wpsInstalled: true,
     });
     await expect(requestWpsPermission()).resolves.toBe(true);
     expect(getExtensionId()).toBe('abcdefghijklmnopabcdefghijklmnop');
@@ -91,6 +92,7 @@ describe('WPS integration client', () => {
     await expect(inspectWpsHelper()).resolves.toEqual({
       capability: 'ready',
       detail: undefined,
+      wpsInstalled: true,
     });
     expect(sendMessage).toHaveBeenCalledWith({ type: 'chat-export:wps-diagnose' });
     expect(sendMessage).toHaveBeenCalledWith({ type: 'chat-export:wps-ping' });
@@ -119,6 +121,30 @@ describe('WPS integration client', () => {
       },
     });
     await expect(pingWpsHelper()).resolves.toBe('host-forbidden');
+  });
+
+  it('treats WPS COM detection as diagnostic instead of a helper readiness gate', async () => {
+    installBrowser({
+      granted: true,
+      response: {
+        ok: true,
+        diagnostics: {
+          allowedExtensionIds: ['abcdefghijklmnopabcdefghijklmnop'],
+          allowedOrigins: ['chrome-extension://abcdefghijklmnopabcdefghijklmnop/'],
+          executablePath: 'C:\\Users\\Test\\AppData\\Local\\ChatGPT2Doc\\WpsHelper\\ChatExportWpsHost.exe',
+          installPath: 'C:\\Users\\Test\\AppData\\Local\\ChatGPT2Doc\\WpsHelper',
+          manifestPath: 'C:\\Users\\Test\\AppData\\Local\\ChatGPT2Doc\\WpsHelper\\com.chat_export_local.wps.json',
+        },
+        helperVersion: '0.1.0',
+        protocolVersion: 1,
+        wpsInstalled: false,
+      },
+    });
+
+    await expect(inspectWpsHelper()).resolves.toMatchObject({
+      capability: 'ready',
+      wpsInstalled: false,
+    });
   });
 
   it('returns a bounded failure without changing the Word clipboard path', async () => {

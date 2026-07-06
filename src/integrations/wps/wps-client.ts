@@ -18,6 +18,7 @@ export interface WpsHelperStatus {
   capability: WpsCapability;
   detail?: string;
   diagnostics?: WpsHelperDiagnostics;
+  wpsInstalled?: boolean;
 }
 
 function extensionBrowser(): typeof browser {
@@ -51,7 +52,7 @@ export function getExtensionId(): string {
 function classifyHelperFailure(response: WpsBridgeResponse | undefined): WpsCapability {
   if (!response) return 'helper-failed';
   if (response.ok) {
-    return response.protocolVersion === WPS_PROTOCOL_VERSION && response.wpsInstalled
+    return response.protocolVersion === WPS_PROTOCOL_VERSION
       ? 'ready'
       : 'unavailable';
   }
@@ -82,7 +83,7 @@ function classifyHelperFailure(response: WpsBridgeResponse | undefined): WpsCapa
 
 function classifySuccessfulHelper(response: WpsBridgeResponse): WpsCapability {
   if (!response.ok) return classifyHelperFailure(response);
-  return response.protocolVersion === WPS_PROTOCOL_VERSION && response.wpsInstalled
+  return response.protocolVersion === WPS_PROTOCOL_VERSION
     ? 'ready'
     : 'unavailable';
 }
@@ -111,12 +112,14 @@ export async function inspectWpsHelper(): Promise<WpsHelperStatus> {
       return {
         capability: classifyHelperFailure(pingResponse),
         detail: pingResponse && !pingResponse.ok ? pingResponse.message : undefined,
+        wpsInstalled: pingResponse?.ok ? pingResponse.wpsInstalled : undefined,
       };
     }
     return {
       capability: response?.ok ? classifySuccessfulHelper(response) : classifyHelperFailure(response),
       detail: response && !response.ok ? response.message : undefined,
       diagnostics: response?.ok ? response.diagnostics : undefined,
+      wpsInstalled: response?.ok ? response.wpsInstalled : undefined,
     };
   } catch (error) {
     return {
