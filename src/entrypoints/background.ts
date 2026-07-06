@@ -36,7 +36,9 @@ export default defineBackground(() => {
       }
       const nativeMessage = message.type === 'chat-export:wps-ping'
         ? { operation: 'ping' }
-        : { operation: 'prepare-wps-clipboard', ...message.payload };
+        : message.type === 'chat-export:wps-diagnose'
+          ? { operation: 'diagnose' }
+          : { operation: 'prepare-wps-clipboard', ...message.payload };
       return await sendWpsNativeMessage(nativeMessage);
     } catch (error) {
       return failure(error);

@@ -5,6 +5,10 @@ export interface WpsPingRequest {
   type: 'chat-export:wps-ping';
 }
 
+export interface WpsDiagnoseRequest {
+  type: 'chat-export:wps-diagnose';
+}
+
 export interface WpsPermissionRequest {
   type: 'chat-export:wps-permission-request';
 }
@@ -27,14 +31,24 @@ export interface WpsPrepareRequest {
 }
 
 export type WpsBridgeRequest =
+  | WpsDiagnoseRequest
   | WpsPermissionRemoveRequest
   | WpsPermissionRequest
   | WpsPermissionStatusRequest
   | WpsPingRequest
   | WpsPrepareRequest;
 
+export interface WpsHelperDiagnostics {
+  allowedExtensionIds: string[];
+  allowedOrigins: string[];
+  executablePath: string;
+  installPath: string;
+  manifestPath: string;
+}
+
 export type WpsBridgeResponse =
   | {
+    diagnostics?: WpsHelperDiagnostics;
     ok: true;
     equationCount?: number;
     helperVersion: string;
@@ -52,6 +66,7 @@ export function isWpsBridgeRequest(value: unknown): value is WpsBridgeRequest {
   if (!value || typeof value !== 'object') return false;
   const type = (value as { type?: unknown }).type;
   return type === 'chat-export:wps-ping'
+    || type === 'chat-export:wps-diagnose'
     || type === 'chat-export:wps-prepare'
     || type === 'chat-export:wps-permission-request'
     || type === 'chat-export:wps-permission-remove'

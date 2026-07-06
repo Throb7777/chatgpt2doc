@@ -9,7 +9,9 @@ Export user-selected ChatGPT conversation content to local DOCX and PDF files.
 - `storage`: save non-sensitive export preferences only.
 - Optional `nativeMessaging`: requested only after the user selects WPS Office
   copy compatibility; communicates with the separately installed local WPS
-  helper to place a bounded DOCX/OMML package on the local clipboard.
+  helper, installed through the user-approved Windows setup package or the
+  advanced ZIP/source path, to place a bounded DOCX/OMML package on the local
+  clipboard.
 - `https://chatgpt.com/*` content-script match: display export controls and read
   conversation DOM content only when the user initiates an export.
 

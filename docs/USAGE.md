@@ -109,23 +109,25 @@ removed.
 WPS Office uses a different native clipboard format, so editable WPS equations
 require the optional Windows helper. Chrome and Edge intentionally prevent Web
 Store extensions from silently installing Native Messaging hosts, so the helper
-must be installed once as a separate local component. The release download
-includes a ready-to-use helper package; source builds are only for development.
+must be installed once as a separate local component. Ordinary users do not need
+to build anything from source.
 
-1. Download `chatgpt2doc-wps-helper-v1.0.0.zip` from
-   [Releases](https://github.com/Throb7777/chatgpt2doc/releases) and unzip it.
-2. Find the current extension ID in ChatGPT2Doc Settings or on
-   `chrome://extensions/`.
-3. Run the helper `install.ps1` with that extension ID, following
-   [the WPS helper instructions](../native/wps-helper/README.md).
-4. Open ChatGPT2Doc Settings.
-5. Change **Copy target** to **WPS Office**.
-6. Allow the optional Native Messaging permission when Chrome asks.
-7. Click **Recheck** until the helper status shows as ready.
-8. Select content inside a ChatGPT message and press `Ctrl+C`.
-9. Paste directly into WPS Writer.
+1. Download `chatgpt2doc-wps-helper-setup-v1.0.0.exe` from
+   [Releases](https://github.com/Throb7777/chatgpt2doc/releases).
+2. Run the installer. If it asks for an extension ID, copy the current ID from
+   ChatGPT2Doc Settings and paste it into the installer.
+3. Open ChatGPT2Doc Settings.
+4. Change **Copy target** to **WPS Office**.
+5. Allow the optional Native Messaging permission when Chrome asks.
+6. Click **Recheck** until the helper status shows as ready. The settings panel
+   shows both the current extension ID and the helper-bound ID so you can spot
+   an ID mismatch.
+7. Select content inside a ChatGPT message and press `Ctrl+C`.
+8. Paste directly into WPS Writer.
 
-Standard DOCX and PDF export do not require this helper.
+Standard DOCX and PDF export do not require this helper. Advanced users can
+still download the ZIP package or build from source; see
+[the WPS helper instructions](../native/wps-helper/README.md).
 
 ## Settings
 
@@ -164,9 +166,10 @@ your browser's local extension storage.
 - **Images are missing:** the browser may have been unable to read or decode
   the source URL. The extension tries to keep the original image link or a
   visible fallback.
-- **WPS helper is unavailable:** confirm the extension ID shown in Settings,
-  reinstall the helper for that ID, grant the required permission, and click
-  **Recheck**.
+- **WPS helper is unavailable:** install the WPS Helper Setup from Releases,
+  confirm the extension ID shown in Settings if prompted, grant the required
+  permission, and click **Recheck**. If Settings shows that the helper-bound ID
+  differs from the current extension ID, re-run the setup with the current ID.
 - **Chrome reports a missing manifest file:** make sure `npm run build:chrome`
   completed successfully. In Chrome, load `.output/chrome-mv3`, not the project
   root.

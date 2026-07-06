@@ -1,4 +1,5 @@
 import { createHash } from 'node:crypto';
+import { spawnSync } from 'node:child_process';
 import { existsSync } from 'node:fs';
 import { mkdir, readFile, readdir, rm, stat, writeFile } from 'node:fs/promises';
 import path from 'node:path';
@@ -142,11 +143,24 @@ const outputs = {
   chrome: path.join(releaseRoot, 'chrome', 'chatgpt2doc-chrome-v1.0.0.zip'),
   edge: path.join(releaseRoot, 'edge', 'chatgpt2doc-edge-v1.0.0.zip'),
   helper: path.join(releaseRoot, 'wps-helper', 'chatgpt2doc-wps-helper-v1.0.0.zip'),
+  helperSetup: path.join(releaseRoot, 'wps-helper', 'chatgpt2doc-wps-helper-setup-v1.0.0.exe'),
   source: path.join(releaseRoot, 'source', 'chatgpt2doc-source-v1.0.0.zip'),
 };
 
 await zipDirectory(path.join(root, '.output', 'chrome-mv3'), outputs.chrome);
 await zipDirectory(path.join(root, '.output', 'edge-mv3'), outputs.edge);
+const installerResult = spawnSync(process.execPath, [
+  path.join(root, 'scripts', 'build-wps-helper-installer.mjs'),
+  version,
+], {
+  cwd: root,
+  encoding: 'utf8',
+  stdio: 'inherit',
+  windowsHide: true,
+});
+if (installerResult.status !== 0) {
+  throw new Error('WPS helper installer build failed.');
+}
 await zipDirectory(path.join(root, 'native', 'wps-helper'), outputs.helper, { includeExcluded: true });
 await zipPublicSource(outputs.source);
 
@@ -160,7 +174,9 @@ for (const [name, file] of Object.entries(outputs)) {
     path: normalize(path.relative(root, file)),
     bytes: await fileSize(file),
     sha256: await sha256(file),
-    entryCount: await verifyZip(file, { requireManifest: name === 'chrome' || name === 'edge' }),
+    entryCount: name === 'helperSetup'
+      ? null
+      : await verifyZip(file, { requireManifest: name === 'chrome' || name === 'edge' }),
   };
 }
 

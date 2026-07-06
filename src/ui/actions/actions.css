@@ -540,6 +540,12 @@
   min-height: 30px;
 }
 
+.chat-export-settings-helper-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
 .chat-export-copy-targets {
   display: grid;
   gap: 8px;
@@ -642,6 +648,33 @@
   padding: 6px 7px;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+.chat-export-helper-diagnostics {
+  display: grid;
+  gap: 6px;
+}
+
+.chat-export-helper-diagnostics > span {
+  color: color-mix(in srgb, CanvasText 68%, transparent);
+  font: 600 11px/1.25 ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+.chat-export-helper-diagnostics code {
+  background: color-mix(in srgb, CanvasText 6%, transparent);
+  border-radius: 7px;
+  color: color-mix(in srgb, CanvasText 78%, transparent);
+  font: 500 11px/1.35 ui-monospace, "SFMono-Regular", Consolas, monospace;
+  overflow-wrap: anywhere;
+  padding: 6px 7px;
+}
+
+.chat-export-settings-ok {
+  color: color-mix(in srgb, #047857 82%, CanvasText) !important;
+}
+
+.chat-export-settings-warning {
+  color: color-mix(in srgb, #b45309 86%, CanvasText) !important;
 }
 
 .chat-export-wps-copy-toast {

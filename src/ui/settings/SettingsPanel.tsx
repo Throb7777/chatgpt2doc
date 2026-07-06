@@ -11,6 +11,7 @@ import {
   requestWpsPermission,
   type WpsCapability,
 } from '../../integrations/wps/wps-client';
+import type { WpsHelperDiagnostics } from '../../integrations/wps/protocol';
 import { getUiStrings } from '../i18n';
 
 interface SettingsPanelProps {
@@ -29,6 +30,7 @@ export function SettingsPanel({
     settings.copyTarget === 'wps' ? 'checking' : 'off',
   );
   const [wpsStatusDetail, setWpsStatusDetail] = useState('');
+  const [wpsDiagnostics, setWpsDiagnostics] = useState<WpsHelperDiagnostics | undefined>();
   const [extensionIdCopied, setExtensionIdCopied] = useState(false);
   const languageRef = useRef<HTMLSelectElement>(null);
   const panelRef = useRef<HTMLElement>(null);
@@ -42,6 +44,7 @@ export function SettingsPanel({
       if (!active) return;
       setWpsStatus(status.capability);
       setWpsStatusDetail(status.detail ?? '');
+      setWpsDiagnostics(status.diagnostics);
     });
     return () => { active = false; };
   }, [settings.copyTarget]);
@@ -52,27 +55,33 @@ export function SettingsPanel({
       setDraft((current) => ({ ...current, copyTarget: 'word', wpsEditableCopy: false }));
       setWpsStatus('off');
       setWpsStatusDetail('');
+      setWpsDiagnostics(undefined);
       return;
     }
     setWpsStatus('checking');
     setWpsStatusDetail('');
+    setWpsDiagnostics(undefined);
     setDraft((current) => ({ ...current, copyTarget: 'wps', wpsEditableCopy: true }));
     if (!await requestWpsPermission()) {
       setWpsStatus('permission-denied');
       setWpsStatusDetail('');
+      setWpsDiagnostics(undefined);
       return;
     }
     const status = await inspectWpsHelper();
     setWpsStatus(status.capability);
     setWpsStatusDetail(status.detail ?? '');
+    setWpsDiagnostics(status.diagnostics);
   };
 
   const recheckWps = async () => {
     setWpsStatus('checking');
     setWpsStatusDetail('');
+    setWpsDiagnostics(undefined);
     const status = await inspectWpsHelper();
     setWpsStatus(status.capability);
     setWpsStatusDetail(status.detail ?? '');
+    setWpsDiagnostics(status.diagnostics);
   };
 
   const copyExtensionId = async () => {
@@ -80,6 +89,14 @@ export function SettingsPanel({
     await navigator.clipboard.writeText(extensionId);
     setExtensionIdCopied(true);
     window.setTimeout(() => setExtensionIdCopied(false), 1600);
+  };
+
+  const openWpsHelperDownload = () => {
+    window.open(
+      'https://github.com/Throb7777/chatgpt2doc/releases/tag/v1.0.0',
+      '_blank',
+      'noopener,noreferrer',
+    );
   };
 
   const wpsStatusLabel = (() => {
@@ -108,6 +125,10 @@ export function SettingsPanel({
 
   const helperNeedsInstall = wpsStatus === 'host-not-found' || wpsStatus === 'unavailable';
   const helperNeedsRebind = wpsStatus === 'host-forbidden';
+  const helperBoundIds = wpsDiagnostics?.allowedExtensionIds ?? [];
+  const helperBindingMatches = extensionId
+    ? helperBoundIds.includes(extensionId)
+    : false;
 
   useLayoutEffect(() => {
     const panel = panelRef.current;
@@ -361,15 +382,39 @@ export function SettingsPanel({
                 </button>
               </div>
             ) : null}
+            {draft.copyTarget === 'wps' && wpsDiagnostics ? (
+              <div class="chat-export-helper-diagnostics">
+                <span>{strings.wpsBoundExtensionIds}</span>
+                <code>{helperBoundIds.length > 0 ? helperBoundIds.join(', ') : '—'}</code>
+                <p
+                  class={helperBindingMatches
+                    ? 'chat-export-settings-ok'
+                    : 'chat-export-settings-warning'}
+                >
+                  {helperBindingMatches ? strings.wpsBindingMatches : strings.wpsBindingMismatch}
+                </p>
+                <span>{strings.wpsHelperInstallPath}</span>
+                <code>{wpsDiagnostics.installPath || '—'}</code>
+              </div>
+            ) : null}
             {draft.copyTarget === 'wps' ? (
-              <button
-                class="chat-export-action-button"
-                disabled={wpsStatus === 'checking'}
-                onClick={() => void recheckWps()}
-                type="button"
-              >
-                {strings.wpsCheckAgain}
-              </button>
+              <div class="chat-export-settings-helper-actions">
+                <button
+                  class="chat-export-action-button"
+                  onClick={openWpsHelperDownload}
+                  type="button"
+                >
+                  {strings.wpsDownloadHelper}
+                </button>
+                <button
+                  class="chat-export-action-button"
+                  disabled={wpsStatus === 'checking'}
+                  onClick={() => void recheckWps()}
+                  type="button"
+                >
+                  {strings.wpsCheckAgain}
+                </button>
+              </div>
             ) : null}
           </div>
         </fieldset>

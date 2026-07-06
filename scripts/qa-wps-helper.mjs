@@ -55,6 +55,20 @@ if (!ping.ok || ping.protocolVersion !== 1 || !ping.wpsInstalled) {
   throw new Error(`Unexpected helper ping: ${JSON.stringify(ping)}`);
 }
 
+const diagnoseResponse = nextResponse();
+host.stdin.write(frame({ operation: 'diagnose' }));
+const diagnose = await diagnoseResponse;
+if (
+  !diagnose.ok
+  || diagnose.protocolVersion !== 1
+  || !diagnose.diagnostics
+  || !Array.isArray(diagnose.diagnostics.allowedExtensionIds)
+  || typeof diagnose.diagnostics.installPath !== 'string'
+  || typeof diagnose.diagnostics.manifestPath !== 'string'
+) {
+  throw new Error(`Unexpected helper diagnose: ${JSON.stringify(diagnose)}`);
+}
+
 const rejectedResponse = nextResponse();
 host.stdin.write(frame({ operation: 'unknown-operation' }));
 const rejected = await rejectedResponse;
@@ -78,4 +92,4 @@ if (!prepared.ok || prepared.packageBytes !== docx.length) {
   throw new Error(`Unexpected helper response: ${JSON.stringify(prepared)}`);
 }
 
-process.stdout.write(`${JSON.stringify({ ping, rejected, prepared }, null, 2)}\n`);
+process.stdout.write(`${JSON.stringify({ ping, diagnose, rejected, prepared }, null, 2)}\n`);

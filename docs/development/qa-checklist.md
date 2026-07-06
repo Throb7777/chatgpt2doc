@@ -11,6 +11,7 @@ npm run qa:m7.1
 npm run qa:m7.5:release
 npm run qa:m16.1:wps-helper
 npm run release:readiness
+npm run release:helper-installer
 npm run release:package
 ```
 
@@ -21,7 +22,7 @@ npm run release:package
 - Export one representative response to PDF.
 - Confirm successful export toast auto-dismisses.
 - Copy a representative formula into Microsoft Word and confirm it remains editable where Word supports the MathML path.
-- Select WPS Office, confirm helper status is ready, copy a supported formula, and confirm WPS editability.
+- Install the WPS helper setup package, select WPS Office, confirm helper status is ready, copy a supported formula, and confirm WPS editability.
 
 ## External coverage still separate
 

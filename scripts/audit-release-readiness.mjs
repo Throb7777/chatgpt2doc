@@ -225,7 +225,21 @@ for (const [browser, relativePath] of Object.entries({
   edge: 'release/v1.0.0/edge/chatgpt2doc-edge-v1.0.0.zip',
   helper: 'release/v1.0.0/wps-helper/chatgpt2doc-wps-helper-v1.0.0.zip',
   source: 'release/v1.0.0/source/chatgpt2doc-source-v1.0.0.zip',
+  helperSetup: 'release/v1.0.0/wps-helper/chatgpt2doc-wps-helper-setup-v1.0.0.exe',
 })) {
+  if (browser === 'helperSetup') {
+    result.archives[browser] = {
+      exists: existsSync(path.join(root, relativePath)),
+      hasRootManifest: false,
+      hasHelperExecutable: false,
+      hasHelperInstallScript: false,
+      forbiddenEntries: [],
+    };
+    if (!result.archives[browser].exists) {
+      fail(`Required release installer is missing: ${relativePath}`);
+    }
+    continue;
+  }
   const entries = await zipEntries(relativePath);
   result.archives[browser] = entries ? {
     exists: true,

@@ -113,17 +113,17 @@ Microsoft Edge 用户：请运行 `npm run build:edge`，随后在 `edge://exten
 
 ### 复制可编辑公式至 WPS Writer（可选）
 
-由于 WPS Office 使用不同的本机剪贴板格式，复制生成可编辑的 WPS 公式需要安装可选的 Windows 辅助工具（Helper）。Chrome 和 Edge 出于安全原因不允许应用商店扩展在用户电脑上静默安装或注册 Native Messaging 主机，因此该 Helper 必须作为一个由用户主动安装的本地组件存在。Release 下载中会提供可直接使用的 Helper 包；从源码构建只适合开发场景。
+由于 WPS Office 使用不同的本机剪贴板格式，复制生成可编辑的 WPS 公式需要安装可选的 Windows 辅助工具（Helper）。Chrome 和 Edge 出于安全原因不允许应用商店扩展在用户电脑上静默安装或注册 Native Messaging 主机，因此该 Helper 必须作为一个由用户主动安装的本地组件存在。普通用户请直接下载并运行一键安装器；源码构建和 PowerShell 脚本只适合开发或排错场景。
 
 操作步骤：
 
-1. 从 [Releases](https://github.com/Throb7777/chatgpt2doc/releases) 下载 `chatgpt2doc-wps-helper-v1.0.0.zip` 并解压。
-2. 在 ChatGPT2Doc 设置中或 `chrome://extensions/` 页面中找到当前扩展 ID。
-3. 按照 [WPS Helper 说明](native/wps-helper/README.md)，使用该扩展 ID 运行 Helper 的 `install.ps1`。
+1. 从 [Releases](https://github.com/Throb7777/chatgpt2doc/releases) 下载 `chatgpt2doc-wps-helper-setup-v1.0.0.exe`。
+2. 在 ChatGPT2Doc 设置中复制当前扩展 ID；如果安装器提示输入扩展 ID，请粘贴该 ID。
+3. 运行安装器并完成安装。
 4. 打开 ChatGPT2Doc 设置。
 5. 将“复制目标”更改为 **WPS Office**。
 6. 当 Chrome 弹出提示时，允许“本机消息传递”（Native Messaging）权限。
-7. 点击“重新检查”，直至 Helper 状态显示为“可用”。
+7. 点击“重新检查”，直至 Helper 状态显示为“可用”。设置面板会同时显示当前扩展 ID 和增强组件绑定的 ID，便于核对是否绑定错扩展。
 8. 在 ChatGPT 消息中选中内容并按下 `Ctrl+C`。
 9. 直接粘贴至 WPS Writer 中。
 
@@ -152,7 +152,7 @@ Microsoft Edge 用户：请运行 `npm run build:edge`，随后在 `edge://exten
 - **导出任务一直处于忙碌状态：**请先等待当前 ChatGPT 消息完全生成结束。若依然卡住，可以取消当前导出并重新尝试，避免同时发起多个导出任务。
 - **公式显示为回退内容：**开启设置中的“显示导出诊断”以检查具体公式。如果公式中使用了某些暂不支持的特定排版语法，系统会自动以回退排版显示以确保内容不丢失。
 - **导出的文档中图片丢失：**这通常是由于浏览器无法成功访问或解码该图片的源地址。扩展会尽最大可能在原位置保留图片链接或显示一个可见的占位符。
-- **WPS Helper 提示不可用：**请确认设置中显示的扩展 ID，使用该 ID 重新安装 Helper，授予所需权限后再点击“重新检查”。
+- **WPS Helper 提示不可用：**请确认设置中显示的扩展 ID，重新运行 `chatgpt2doc-wps-helper-setup-v1.0.0.exe` 并填写该 ID，授予所需权限后再点击“重新检查”。如果设置中显示的“增强组件绑定的扩展 ID”和“当前扩展 ID”不一致，请用当前 ID 重新运行安装器。
 - **手动加载时提示缺少 manifest 文件：**请确保已在终端中成功运行了 `npm run build:chrome`。在 Chrome 中加载时，应选择 `.output/chrome-mv3` 文件夹，而不是项目的根目录。
 
 ## 隐私声明

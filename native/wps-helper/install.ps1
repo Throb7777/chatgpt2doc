@@ -14,7 +14,7 @@ if (-not (Test-Path -LiteralPath $sourceExe)) {
   & (Join-Path $PSScriptRoot 'build.ps1') | Out-Null
 }
 
-$installDirectory = Join-Path $env:LOCALAPPDATA 'ChatExportLocal\WpsHelper'
+$installDirectory = Join-Path $env:LOCALAPPDATA 'ChatGPT2Doc\WpsHelper'
 [System.IO.Directory]::CreateDirectory($installDirectory) | Out-Null
 $targetExe = Join-Path $installDirectory 'ChatExportWpsHost.exe'
 $manifestPath = Join-Path $installDirectory ($hostName + '.json')

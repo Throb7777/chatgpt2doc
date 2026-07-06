@@ -10,7 +10,7 @@
 6. Open settings and confirm paper size, prompt inclusion, language, diagnostics, and copy target can be changed.
 7. Optional WPS path:
    - select `WPS Office` as the copy target;
-   - install the local WPS helper if needed;
+   - install the local WPS helper setup package if needed;
    - grant the optional Native Messaging permission;
    - recheck helper status;
    - copy a supported formula and paste into WPS Writer.

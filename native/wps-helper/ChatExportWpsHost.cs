@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
@@ -59,13 +60,11 @@ internal static class ChatExportWpsHost
             : null;
         if (operation == "ping")
         {
-            return Json.Serialize(new
-            {
-                ok = true,
-                protocolVersion = ProtocolVersion,
-                helperVersion = "0.1.0",
-                wpsInstalled = Type.GetTypeFromProgID("KWPS.Application") != null
-            });
+            return Success(null);
+        }
+        if (operation == "diagnose")
+        {
+            return Success(BuildDiagnostics());
         }
         if (operation != "prepare-wps-clipboard")
         {
@@ -104,6 +103,82 @@ internal static class ChatExportWpsHost
         {
             return Error("invalid-payload", error.Message);
         }
+    }
+
+    private static string Success(object diagnostics)
+    {
+        if (diagnostics == null)
+        {
+            return Json.Serialize(new
+            {
+                ok = true,
+                protocolVersion = ProtocolVersion,
+                helperVersion = "0.1.0",
+                wpsInstalled = Type.GetTypeFromProgID("KWPS.Application") != null
+            });
+        }
+        return Json.Serialize(new
+        {
+            ok = true,
+            protocolVersion = ProtocolVersion,
+            helperVersion = "0.1.0",
+            wpsInstalled = Type.GetTypeFromProgID("KWPS.Application") != null,
+            diagnostics = diagnostics
+        });
+    }
+
+    private static object BuildDiagnostics()
+    {
+        string executablePath = Application.ExecutablePath;
+        string installPath = Path.GetDirectoryName(executablePath) ?? "";
+        string manifestPath = Path.Combine(installPath, "com.chat_export_local.wps.json");
+        string[] allowedOrigins = ReadAllowedOrigins(manifestPath);
+        return new
+        {
+            executablePath = executablePath,
+            installPath = installPath,
+            manifestPath = manifestPath,
+            allowedOrigins = allowedOrigins,
+            allowedExtensionIds = ExtractExtensionIds(allowedOrigins)
+        };
+    }
+
+    private static string[] ReadAllowedOrigins(string manifestPath)
+    {
+        if (!File.Exists(manifestPath)) return new string[0];
+        try
+        {
+            Dictionary<string, object> manifest = Json.Deserialize<Dictionary<string, object>>(
+                File.ReadAllText(manifestPath, Encoding.UTF8));
+            object originsValue;
+            if (!manifest.TryGetValue("allowed_origins", out originsValue)) return new string[0];
+            ArrayList origins = originsValue as ArrayList;
+            if (origins == null) return new string[0];
+            List<string> result = new List<string>();
+            foreach (object origin in origins)
+            {
+                string text = origin as string;
+                if (!String.IsNullOrEmpty(text)) result.Add(text);
+            }
+            return result.ToArray();
+        }
+        catch
+        {
+            return new string[0];
+        }
+    }
+
+    private static string[] ExtractExtensionIds(string[] origins)
+    {
+        const string prefix = "chrome-extension://";
+        List<string> result = new List<string>();
+        foreach (string origin in origins)
+        {
+            if (!origin.StartsWith(prefix, StringComparison.Ordinal)) continue;
+            string id = origin.Substring(prefix.Length).TrimEnd('/');
+            if (id.Length == 32) result.Add(id);
+        }
+        return result.ToArray();
     }
 
     private static int ValidateDocx(byte[] bytes)

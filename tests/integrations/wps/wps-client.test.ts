@@ -47,14 +47,53 @@ describe('WPS integration client', () => {
       granted: true,
       response: {
         ok: true,
+        diagnostics: {
+          allowedExtensionIds: ['abcdefghijklmnopabcdefghijklmnop'],
+          allowedOrigins: ['chrome-extension://abcdefghijklmnopabcdefghijklmnop/'],
+          executablePath: 'C:\\Users\\Test\\AppData\\Local\\ChatGPT2Doc\\WpsHelper\\ChatExportWpsHost.exe',
+          installPath: 'C:\\Users\\Test\\AppData\\Local\\ChatGPT2Doc\\WpsHelper',
+          manifestPath: 'C:\\Users\\Test\\AppData\\Local\\ChatGPT2Doc\\WpsHelper\\com.chat_export_local.wps.json',
+        },
         helperVersion: '0.1.0',
         protocolVersion: 1,
         wpsInstalled: true,
       },
     });
     await expect(pingWpsHelper()).resolves.toBe('ready');
+    await expect(inspectWpsHelper()).resolves.toMatchObject({
+      capability: 'ready',
+      diagnostics: {
+        allowedExtensionIds: ['abcdefghijklmnopabcdefghijklmnop'],
+      },
+    });
     await expect(requestWpsPermission()).resolves.toBe(true);
     expect(getExtensionId()).toBe('abcdefghijklmnopabcdefghijklmnop');
+  });
+
+  it('falls back to ping when an older helper lacks diagnose', async () => {
+    let requestCount = 0;
+    const sendMessage = vi.fn(async (message: { type?: string }) => {
+      if (message.type === 'chat-export:wps-permission-status') {
+        return { ok: true, granted: true };
+      }
+      requestCount += 1;
+      return requestCount === 1
+        ? { ok: false, error: 'unsupported-operation', message: 'The requested operation is not supported.' }
+        : { ok: true, helperVersion: '0.1.0', protocolVersion: 1, wpsInstalled: true };
+    });
+    vi.stubGlobal('browser', {
+      runtime: {
+        id: 'abcdefghijklmnopabcdefghijklmnop',
+        sendMessage,
+      },
+    });
+
+    await expect(inspectWpsHelper()).resolves.toEqual({
+      capability: 'ready',
+      detail: undefined,
+    });
+    expect(sendMessage).toHaveBeenCalledWith({ type: 'chat-export:wps-diagnose' });
+    expect(sendMessage).toHaveBeenCalledWith({ type: 'chat-export:wps-ping' });
   });
 
   it('distinguishes an unregistered host from an extension ID mismatch', async () => {

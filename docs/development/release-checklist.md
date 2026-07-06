@@ -16,6 +16,8 @@ Run this checklist before publishing source or uploading a browser package.
 - `npm run build:chrome` passes.
 - `npm run build:edge` passes.
 - `npm run release:package` creates Chrome and Edge ZIP files.
+- `npm run release:package` creates the optional WPS helper setup EXE when Inno Setup 6 is installed.
+- `npm run release:helper-installer` can rebuild just the WPS helper setup EXE.
 - Each extension ZIP has `manifest.json` at the ZIP root.
 - Chrome manifest requires only `storage`.
 - Chrome manifest declares only optional `nativeMessaging`.

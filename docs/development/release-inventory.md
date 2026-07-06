@@ -7,7 +7,7 @@ Updated: 2026-07-05
 - Product source: `src/`
 - Automated tests: `tests/`
 - Static extension assets: `public/icon/`, `public/fonts/`
-- Optional local helper source: `native/wps-helper/`, excluding `dist/`
+- Optional local helper source and installer script: `native/wps-helper/`, excluding `dist/`
 - Build and QA scripts: `scripts/`
 - Public documentation: `README.md`, `README.zh-CN.md`, `PRIVACY.md`, `PRIVACY.zh-CN.md`, PolyForm Noncommercial `LICENSE`, `THIRD_PARTY_NOTICES.md`, `docs/USAGE.md`, `docs/USAGE.zh-CN.md`, `docs/store/`, `docs/development/`
 - Package and tool configuration: `package.json`, `package-lock.json`, `wxt.config.ts`, `tsconfig.json`, `vitest.config.ts`, `eslint.config.js`
@@ -18,6 +18,12 @@ Updated: 2026-07-05
 - Edge ZIP source: `.output/edge-mv3/`
 - Both ZIPs must have `manifest.json` at the ZIP root.
 - Neither ZIP may contain source docs, tests, local release folders, private reference material, or helper binaries.
+
+## Helper release artifact categories
+
+- WPS helper setup EXE: `release/v1.0.0/wps-helper/chatgpt2doc-wps-helper-setup-v1.0.0.exe`
+- WPS helper advanced ZIP: `release/v1.0.0/wps-helper/chatgpt2doc-wps-helper-v1.0.0.zip`
+- These helper artifacts are separate GitHub Release downloads. They are not bundled inside the Chrome or Edge extension ZIP.
 
 ## Local-only categories
 

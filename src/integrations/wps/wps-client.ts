@@ -1,6 +1,7 @@
 import {
   WPS_PROTOCOL_VERSION,
   type WpsBridgeResponse,
+  type WpsHelperDiagnostics,
   type WpsPrepareRequest,
 } from './protocol';
 
@@ -16,6 +17,7 @@ export type WpsCapability =
 export interface WpsHelperStatus {
   capability: WpsCapability;
   detail?: string;
+  diagnostics?: WpsHelperDiagnostics;
 }
 
 function extensionBrowser(): typeof browser {
@@ -65,11 +67,24 @@ function classifyHelperFailure(response: WpsBridgeResponse | undefined): WpsCapa
   if (
     detail.includes('forbidden')
     || detail.includes('access to the specified native messaging host')
+    || detail.includes('not listed in allowed_origins')
     || detail.includes('not allowed')
+    || detail.includes('permission denied')
+    || detail.includes('access denied')
+    || detail.includes('拒绝')
+    || detail.includes('禁止')
+    || detail.includes('不允许')
   ) {
     return 'host-forbidden';
   }
   return 'helper-failed';
+}
+
+function classifySuccessfulHelper(response: WpsBridgeResponse): WpsCapability {
+  if (!response.ok) return classifyHelperFailure(response);
+  return response.protocolVersion === WPS_PROTOCOL_VERSION && response.wpsInstalled
+    ? 'ready'
+    : 'unavailable';
 }
 
 export async function removeWpsPermission(): Promise<void> {
@@ -87,11 +102,21 @@ export async function inspectWpsHelper(): Promise<WpsHelperStatus> {
       ?.granted === true;
     if (!permitted) return { capability: 'permission-needed' };
     const response = await api.runtime.sendMessage({
-      type: 'chat-export:wps-ping',
+      type: 'chat-export:wps-diagnose',
     }) as WpsBridgeResponse;
+    if (!response?.ok && response?.error === 'unsupported-operation') {
+      const pingResponse = await api.runtime.sendMessage({
+        type: 'chat-export:wps-ping',
+      }) as WpsBridgeResponse;
+      return {
+        capability: classifyHelperFailure(pingResponse),
+        detail: pingResponse && !pingResponse.ok ? pingResponse.message : undefined,
+      };
+    }
     return {
-      capability: classifyHelperFailure(response),
+      capability: response?.ok ? classifySuccessfulHelper(response) : classifyHelperFailure(response),
       detail: response && !response.ok ? response.message : undefined,
+      diagnostics: response?.ok ? response.diagnostics : undefined,
     };
   } catch (error) {
     return {

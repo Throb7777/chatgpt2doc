@@ -68,6 +68,7 @@
     "qa:m16.1:word-clipboard": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/qa-word-clipboard-math.ps1 -HtmlPath tests/fixtures/clipboard/word-math-corpus.html",
     "qa:m16.1:real-chatgpt-ab": "node scripts/qa-m16-1-real-chatgpt-clipboard-ab.mjs",
     "qa:m16.1:wps-helper": "node scripts/qa-wps-helper.mjs",
+    "release:helper-installer": "node scripts/build-wps-helper-installer.mjs v1.0.0",
     "release:package": "node scripts/build-release-artifacts.mjs v1.0.0",
     "release:readiness": "node scripts/audit-release-readiness.mjs",
     "test": "vitest run",

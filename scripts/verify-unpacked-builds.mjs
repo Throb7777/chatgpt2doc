@@ -81,6 +81,94 @@ function selectFolder(target) {
   });
 }
 
+async function getEdgeDeveloperModeState(page) {
+  return page.evaluate(() => {
+    function deepFind(root, predicate) {
+      for (const element of root.querySelectorAll('*')) {
+        if (predicate(element)) return element;
+        if (element.shadowRoot) {
+          const found = deepFind(element.shadowRoot, predicate);
+          if (found) return found;
+        }
+      }
+      return null;
+    }
+    const switchElement = deepFind(
+      document,
+      (element) => element.tagName.toLowerCase() === 'fluent-switch' && element.id === 'dev-switch',
+    );
+    if (!switchElement) {
+      throw new Error('Edge developer-mode switch was not found.');
+    }
+    return {
+      checked: Boolean(switchElement.checked) || switchElement.getAttribute('checked') === 'true',
+      disabled: Boolean(switchElement.disabled) || switchElement.getAttribute('disabled') === 'true',
+    };
+  });
+}
+
+async function clickEdgeDeveloperMode(page) {
+  await page.evaluate(() => {
+    function deepFind(root, predicate) {
+      for (const element of root.querySelectorAll('*')) {
+        if (predicate(element)) return element;
+        if (element.shadowRoot) {
+          const found = deepFind(element.shadowRoot, predicate);
+          if (found) return found;
+        }
+      }
+      return null;
+    }
+    const switchElement = deepFind(
+      document,
+      (element) => element.tagName.toLowerCase() === 'fluent-switch' && element.id === 'dev-switch',
+    );
+    if (!switchElement) {
+      throw new Error('Edge developer-mode switch was not found.');
+    }
+    switchElement.click();
+  });
+}
+
+async function clickEdgeLoadUnpacked(page) {
+  const deadline = Date.now() + 5_000;
+  while (Date.now() < deadline) {
+    const clicked = await page.evaluate(() => {
+      function deepFind(root, predicate) {
+        for (const element of root.querySelectorAll('*')) {
+          if (predicate(element)) return element;
+          if (element.shadowRoot) {
+            const found = deepFind(element.shadowRoot, predicate);
+            if (found) return found;
+          }
+        }
+        return null;
+      }
+      const button = deepFind(document, (element) => {
+        const text = (element.innerText || element.textContent || '').replace(/\s+/gu, ' ').trim();
+        const title = element.getAttribute('title') ?? '';
+        return element.tagName.toLowerCase() === 'fluent-button'
+          && (
+            /Load unpacked/iu.test(text)
+              || /Load unpacked/iu.test(title)
+              || text.includes('加载解压缩')
+              || title.includes('加载解压缩')
+          );
+      });
+      if (!button) {
+        return false;
+      }
+      button.click();
+      return true;
+    });
+    if (clicked) {
+      return true;
+    }
+    await page.waitForTimeout(100);
+  }
+  throw new Error('Edge load-unpacked button was not found.');
+}
+
 async function verifyTarget(target) {
   const manifest = JSON.parse(
     await readFile(path.join(target.extensionPath, 'manifest.json'), 'utf8'),
@@ -109,24 +197,28 @@ async function verifyTarget(target) {
     await extensionsPage.goto(target.extensionsUrl);
     const developerMode =
       target.browser === 'edge'
-        ? extensionsPage.locator('#developer-mode')
+        ? null
         : extensionsPage.locator('extensions-toolbar #devMode');
-    const developerModeState = await developerMode.evaluate((element) => ({
-      checked: element.checked,
-      disabled: element.disabled,
-    }));
+    const developerModeState = target.browser === 'edge'
+      ? await getEdgeDeveloperModeState(extensionsPage)
+      : await developerMode.evaluate((element) => ({
+        checked: element.checked,
+        disabled: element.disabled,
+      }));
     if (!developerModeState.checked) {
       if (developerModeState.disabled) {
         throw new Error(`${target.browser} developer mode is disabled by policy.`);
       }
       if (target.browser === 'edge') {
-        await developerMode.check();
+        await clickEdgeDeveloperMode(extensionsPage);
       } else {
         await developerMode.focus();
         await extensionsPage.keyboard.press('Space');
       }
       const deadline = Date.now() + 5_000;
-      while (!(await developerMode.evaluate((element) => element.checked))) {
+      while (!(target.browser === 'edge'
+        ? await getEdgeDeveloperModeState(extensionsPage).then((state) => state.checked)
+        : await developerMode.evaluate((element) => element.checked))) {
         if (Date.now() >= deadline) {
           throw new Error(`${target.browser} developer mode did not become enabled.`);
         }
@@ -136,11 +228,15 @@ async function verifyTarget(target) {
 
     const loadUnpackedButton =
       target.browser === 'edge'
-        ? extensionsPage.getByRole('button', { name: /Load unpacked|加载解压缩/ })
+        ? null
         : extensionsPage.locator('extensions-toolbar #loadUnpacked');
-    await loadUnpackedButton.waitFor({ state: 'visible' });
     const folderSelection = selectFolder(target);
-    await loadUnpackedButton.click();
+    if (target.browser === 'edge') {
+      await clickEdgeLoadUnpacked(extensionsPage);
+    } else {
+      await loadUnpackedButton.waitFor({ state: 'visible' });
+      await loadUnpackedButton.click();
+    }
     const selectedFolder = await folderSelection;
     await extensionsPage.waitForTimeout(2_000);
     const extensionCards = await extensionsPage.evaluate(() =>

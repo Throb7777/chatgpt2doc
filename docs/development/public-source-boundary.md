@@ -1,16 +1,17 @@
 # Public Source Boundary
 
-This project has two separate release artifacts:
+This project has three separate release artifact groups:
 
 1. Public source archive for GitHub/source review under the project's noncommercial license.
 2. Chrome/Edge extension ZIPs for browser installation or store submission.
+3. Optional WPS helper downloads for editable WPS formula copy.
 
 ## Include in public source
 
 - `src/`
 - `tests/`
 - `public/`
-- `native/wps-helper/` source and scripts, excluding `dist/`
+- `native/wps-helper/` source, installer script, and scripts, excluding `dist/`
 - `scripts/` release, QA, and asset-generation scripts
 - `docs/USAGE.md`
 - `docs/USAGE.zh-CN.md`

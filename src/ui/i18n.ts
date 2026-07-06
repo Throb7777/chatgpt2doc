@@ -70,9 +70,14 @@ export interface UiStrings {
   wpsCopyPreparing: string;
   wpsCopyReady: string;
   wpsDisable: string;
+  wpsDownloadHelper: string;
   wpsEnable: string;
   wpsIntegration: string;
   wpsIntegrationDescription: string;
+  wpsBoundExtensionIds: string;
+  wpsBindingMatches: string;
+  wpsBindingMismatch: string;
+  wpsHelperInstallPath: string;
   wpsInstallHint: string;
   wpsRebindHint: string;
   wpsStatusChecking: string;
@@ -163,9 +168,14 @@ const EN: UiStrings = {
   wpsCopyPreparing: 'Preparing editable WPS content…',
   wpsCopyReady: 'Ready to paste into WPS.',
   wpsDisable: 'Disable',
+  wpsDownloadHelper: 'Download helper',
   wpsEnable: 'Enable WPS integration',
   wpsIntegration: 'WPS integration',
   wpsIntegrationDescription: 'Adds editable WPS formulas through the optional local helper.',
+  wpsBoundExtensionIds: 'Helper-bound extension ID',
+  wpsBindingMatches: 'Binding matches the current extension.',
+  wpsBindingMismatch: 'Binding does not match the current extension. Re-run the installer with the current ID.',
+  wpsHelperInstallPath: 'Helper install path',
   wpsInstallHint: 'Install the local helper, then check again.',
   wpsRebindHint: 'If the helper is already installed, re-run the installer for this extension ID.',
   wpsStatusChecking: 'Checking',
@@ -256,9 +266,14 @@ const ZH_CN: UiStrings = {
   wpsCopyPreparing: '正在准备 WPS 可编辑内容…',
   wpsCopyReady: '已准备，可粘贴到 WPS。',
   wpsDisable: '停用',
+  wpsDownloadHelper: '下载增强组件',
   wpsEnable: '启用 WPS 集成',
   wpsIntegration: 'WPS 集成',
   wpsIntegrationDescription: '通过可选本地 helper 增加 WPS 原生可编辑公式格式。',
+  wpsBoundExtensionIds: '增强组件绑定的扩展 ID',
+  wpsBindingMatches: '绑定信息与当前扩展一致。',
+  wpsBindingMismatch: '绑定信息与当前扩展不一致，请使用当前 ID 重新运行安装器。',
+  wpsHelperInstallPath: '增强组件安装路径',
   wpsInstallHint: '安装本地 helper 后重新检查。',
   wpsRebindHint: '如果已安装增强组件，请使用当前扩展 ID 重新运行安装器。',
   wpsStatusChecking: '检查中',

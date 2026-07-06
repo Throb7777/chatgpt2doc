@@ -33,6 +33,13 @@ describe('WPS settings integration', () => {
             ? { ok: true, granted: true, removed: true }
             : {
                 ok: true,
+                diagnostics: {
+                  allowedExtensionIds: ['abcdefghijklmnopabcdefghijklmnop'],
+                  allowedOrigins: ['chrome-extension://abcdefghijklmnopabcdefghijklmnop/'],
+                  executablePath: 'C:\\Users\\Test\\AppData\\Local\\ChatGPT2Doc\\WpsHelper\\ChatExportWpsHost.exe',
+                  installPath: 'C:\\Users\\Test\\AppData\\Local\\ChatGPT2Doc\\WpsHelper',
+                  manifestPath: 'C:\\Users\\Test\\AppData\\Local\\ChatGPT2Doc\\WpsHelper\\com.chat_export_local.wps.json',
+                },
                 helperVersion: '0.1.0',
                 protocolVersion: 1,
                 wpsInstalled: true,
@@ -55,6 +62,12 @@ describe('WPS settings integration', () => {
     expect(dom.window.document.querySelector('.chat-export-settings-integration-status')
       ?.textContent).toBe('Ready');
     expect(dom.window.document.body.textContent).toContain('abcdefghijklmnopabcdefghijklmnop');
+    expect(dom.window.document.body.textContent).toContain(
+      'Binding matches the current extension.',
+    );
+    expect(dom.window.document.body.textContent).toContain(
+      'C:\\Users\\Test\\AppData\\Local\\ChatGPT2Doc\\WpsHelper',
+    );
     [...dom.window.document.querySelectorAll('button')]
       .find(({ textContent }) => textContent === 'Save')!.click();
     expect(onSave).toHaveBeenCalledWith(expect.objectContaining({
