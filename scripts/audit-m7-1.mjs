@@ -170,6 +170,7 @@ const allowedUrlLiterals = new Set([
 ]);
 const allowedUrlLocations = new Set([
   'src/integrations/wps/wps-document.ts:https://chatgpt.com/',
+  'src/ui/settings/SettingsPanel.tsx:https://github.com/Throb7777/chatgpt2doc/releases/tag/v1.0.0',
 ]);
 const unexpectedRemoteUrls = remoteUrlLiterals.filter(({ file, value }) =>
   !allowedUrlLiterals.has(value) && !allowedUrlLocations.has(`${file}:${value}`));

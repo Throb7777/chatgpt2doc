@@ -2,7 +2,8 @@
 
 ## Single Purpose
 
-Export user-selected ChatGPT conversation content to local DOCX and PDF files.
+Export and copy user-selected ChatGPT conversation content into local document
+formats, including DOCX, PDF, and Office-compatible clipboard content.
 
 ## Permission Justification
 
@@ -46,6 +47,11 @@ The extension has no backend or telemetry endpoint. A remote image present in
 the selected conversation may be fetched from its original URL without
 credentials or a referrer so it can be embedded. Failure preserves a link and
 warning. No chat text is added to that request.
+
+The settings UI also contains a user-initiated link to the project's GitHub
+Release page so users can download the optional WPS helper setup package. This
+link is opened only when the user clicks the helper download button. It is not
+used for remote code execution, telemetry, or document conversion.
 
 ## Certification
 
