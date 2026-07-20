@@ -1,14 +1,17 @@
 # Usage Guide
 
-[README](../README.md) · [简体中文](USAGE.zh-CN.md) · [Privacy policy](../PRIVACY.md)
+[README](../README.md) · [Chrome Web Store](https://chromewebstore.google.com/detail/chatgpt2doc/fbflighecngbagjcmgngndnabghckmgo?hl=zh-CN&utm_source=ext_sidebar) · [简体中文](USAGE.zh-CN.md) · [Privacy policy](../PRIVACY.md)
 
 ## Installation
 
 ### Via Chrome Web Store (recommended)
 
-The direct store link will be added after the public listing is approved. This
-is the recommended installation method because Chrome can update the extension
-automatically.
+Install ChatGPT2Doc from the Chrome Web Store:
+
+[https://chromewebstore.google.com/detail/chatgpt2doc/fbflighecngbagjcmgngndnabghckmgo?hl=zh-CN&utm_source=ext_sidebar](https://chromewebstore.google.com/detail/chatgpt2doc/fbflighecngbagjcmgngndnabghckmgo?hl=zh-CN&utm_source=ext_sidebar)
+
+This is the recommended installation method because Chrome can update the
+extension automatically.
 
 Project source and release downloads:
 

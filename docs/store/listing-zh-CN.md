@@ -23,6 +23,7 @@ ChatGPT2Doc 会在 ChatGPT 页面中加入简洁的 DOCX 和 PDF 操作。你可
 设置包括英文或简体中文、A4 或 Letter、自定义文件名、是否包含用户提示、文档主题、代码样式、可选诊断信息，以及 Word/WPS 复制目标。
 
 源码、说明文档、问题反馈和版本下载：
+https://chromewebstore.google.com/detail/chatgpt2doc/fbflighecngbagjcmgngndnabghckmgo?hl=zh-CN&utm_source=ext_sidebar
 https://github.com/Throb7777/chatgpt2doc
 https://github.com/Throb7777/chatgpt2doc/releases
 

@@ -31,7 +31,7 @@ Run this checklist before publishing source or uploading a browser package.
 - Small promotional image exists under `docs/store/promotional/`.
 - Test instructions explain DOCX/PDF export and optional WPS helper behavior.
 - The store description links to the final GitHub repository.
-- After Google creates the public item, replace the pending README sentence with the direct Chrome Web Store item URL and verify both directions before publishing either page.
+- The public Chrome Web Store item URL is present in README, Usage, and store listing text.
 
 ## Not part of this task
 

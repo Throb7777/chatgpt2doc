@@ -40,6 +40,7 @@ file name, prompt inclusion, document theme, code style, optional diagnostics,
 and Word/WPS copy target.
 
 Project source, documentation, issue tracker, and release downloads:
+https://chromewebstore.google.com/detail/chatgpt2doc/fbflighecngbagjcmgngndnabghckmgo?hl=zh-CN&utm_source=ext_sidebar
 https://github.com/Throb7777/chatgpt2doc
 https://github.com/Throb7777/chatgpt2doc/releases
 

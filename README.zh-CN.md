@@ -9,6 +9,7 @@
 <p align="center">把 ChatGPT 对话导出为可编辑 Word 文档和可搜索 PDF。</p>
 
 <p align="center">
+  <a href="https://chromewebstore.google.com/detail/chatgpt2doc/fbflighecngbagjcmgngndnabghckmgo?hl=zh-CN&utm_source=ext_sidebar">Chrome 应用商店</a> ·
   <a href="README.md">English</a> ·
   <a href="docs/USAGE.zh-CN.md">使用说明</a> ·
   <a href="PRIVACY.zh-CN.md">隐私政策</a> ·
@@ -36,7 +37,11 @@ ChatGPT2Doc 直接在 ChatGPT 网页端界面中集成 DOCX 和 PDF 导出控制
 
 ### 通过 Chrome 应用商店安装（推荐）
 
-商店审核通过并公开上架后，此处将添加直接安装链接。推荐普通用户使用此方式，以便浏览器后续自动更新。
+请从 Chrome 应用商店安装 ChatGPT2Doc：
+
+[https://chromewebstore.google.com/detail/chatgpt2doc/fbflighecngbagjcmgngndnabghckmgo?hl=zh-CN&utm_source=ext_sidebar](https://chromewebstore.google.com/detail/chatgpt2doc/fbflighecngbagjcmgngndnabghckmgo?hl=zh-CN&utm_source=ext_sidebar)
+
+推荐普通用户使用此方式，以便浏览器后续自动更新。
 
 源码与 Release 下载地址：
 

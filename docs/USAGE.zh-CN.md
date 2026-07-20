@@ -1,12 +1,16 @@
 # 使用说明
 
-[中文 README](../README.zh-CN.md) · [English](USAGE.md) · [隐私政策](../PRIVACY.zh-CN.md)
+[中文 README](../README.zh-CN.md) · [Chrome 应用商店](https://chromewebstore.google.com/detail/chatgpt2doc/fbflighecngbagjcmgngndnabghckmgo?hl=zh-CN&utm_source=ext_sidebar) · [English](USAGE.md) · [隐私政策](../PRIVACY.zh-CN.md)
 
 ## 安装方法
 
 ### 通过 Chrome 应用商店安装（推荐）
 
-应用审核通过并公开上架后，此处将添加直接安装链接。普通用户建议首选此方式，以便 Chrome 能够自动为您更新扩展程序。
+请从 Chrome 应用商店安装 ChatGPT2Doc：
+
+[https://chromewebstore.google.com/detail/chatgpt2doc/fbflighecngbagjcmgngndnabghckmgo?hl=zh-CN&utm_source=ext_sidebar](https://chromewebstore.google.com/detail/chatgpt2doc/fbflighecngbagjcmgngndnabghckmgo?hl=zh-CN&utm_source=ext_sidebar)
+
+普通用户建议首选此方式，以便 Chrome 能够自动为您更新扩展程序。
 
 源码与发行版下载地址：
 
